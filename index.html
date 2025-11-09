@@ -1,0 +1,2914 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显化系统 - 创造理想人生</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #9c88ff;
+            --secondary: #8c7ae6;
+            --accent: #e84118;
+            --light: #f5f6fa;
+            --dark: #2f3640;
+            --success: #44bd32;
+            --warning: #fbc531;
+            --info: #00a8ff;
+            --wechat-green: #07C160;
+            --wechat-bg: #EBEBEB;
+            --wechat-msg-bg: #FFFFFF;
+            --wechat-msg-self: #95EC69;
+            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --smooth-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            scrollbar-width: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 14px 10px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin: 0 6px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 6px 15px rgba(156, 136, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+        }
+
+        .section-title i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--smooth-shadow);
+            border-left: 4px solid var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(156, 136, 255, 0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(156, 136, 255, 0.3);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(156, 136, 255, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), #7b6cd9);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #3aa325);
+        }
+
+        .btn-wechat {
+            background: linear-gradient(135deg, var(--wechat-green), #06ad56);
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* 愿景板美化 */
+        .vision-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .vision-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .vision-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .vision-text {
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 15px;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .vision-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vision-item:hover .vision-actions {
+            opacity: 1;
+        }
+
+        .vision-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .vision-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .wealth-check {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(255, 154, 158, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wealth-check::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .check-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .check-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            font-size: 1.1rem;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.3s;
+        }
+
+        .task-item:hover {
+            background: rgba(245, 246, 250, 0.5);
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-checkbox {
+            margin-right: 15px;
+            transform: scale(1.3);
+            accent-color: var(--primary);
+        }
+
+        .task-content {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            word-break: break-word;
+            font-size: 1.1rem;
+        }
+
+        .task-desc {
+            font-size: 0.95rem;
+            color: #666;
+            word-break: break-word;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .chakra-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .chakra-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: var(--light);
+            transition: all 0.3s ease;
+            box-shadow: var(--smooth-shadow);
+        }
+
+        .chakra-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .chakra-color {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .chakra-1 { background: #ff4757; }
+        .chakra-2 { background: #ffa502; }
+        .chakra-3 { background: #fffa65; }
+        .chakra-4 { background: #2ed573; }
+        .chakra-5 { background: #1e90ff; }
+        .chakra-6 { background: #5352ed; }
+        .chakra-7 { background: #8e44ad; }
+
+        .journal-entry {
+            margin-bottom: 25px;
+        }
+
+        .entry-date {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .entry-content {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            word-break: break-word;
+            box-shadow: var(--smooth-shadow);
+        }
+
+        .emotion-scale {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+            gap: 10px;
+        }
+
+        .emotion-level {
+            text-align: center;
+            flex: 1;
+            padding: 15px 10px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: var(--smooth-shadow);
+        }
+
+        .emotion-level.active {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .level-1 { background: #ff6b6b; color: white; }
+        .level-2 { background: #ff9e7d; color: white; }
+        .level-3 { background: #ffd166; }
+        .level-4 { background: #8ac926; color: white; }
+        .level-5 { background: #1982c4; color: white; }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .library-item {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--smooth-shadow);
+        }
+
+        .library-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), #3aa325);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+
+        .footer-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        .footer-btn i {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .footer-btn.active {
+            color: var(--primary);
+            background: rgba(156, 136, 255, 0.1);
+        }
+
+        .history-list {
+            max-height: 350px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border-radius: 15px;
+            padding: 15px;
+            background: var(--light);
+            box-shadow: var(--smooth-shadow);
+        }
+
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #e8e8e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .history-item:hover {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .history-date {
+            font-weight: bold;
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-right: 15px;
+            min-width: 100px;
+        }
+
+        .history-content {
+            flex: 1;
+            margin-left: 10px;
+            word-break: break-word;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .history-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .history-btn:hover {
+            background: rgba(156, 136, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            animation: modalAppear 0.4s ease;
+        }
+
+        @keyframes modalAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border: 2px dashed #ddd;
+            transition: all 0.3s;
+        }
+
+        .image-preview:hover {
+            border-color: var(--primary);
+        }
+
+        .image-preview i {
+            font-size: 3.5rem;
+            color: #ccc;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: block;
+            padding: 14px 20px;
+            background: var(--light);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px dashed #ddd;
+        }
+
+        .file-label:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 微信聊天样式美化 */
+        .wechat-container {
+            display: flex;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .wechat-sidebar {
+            width: 30%;
+            background: var(--wechat-bg);
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wechat-search {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .wechat-search input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: var(--wechat-bg);
+            font-size: 0.95rem;
+        }
+
+        .wechat-contacts {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        .wechat-contact {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .wechat-contact:hover, .wechat-contact.active {
+            background: #f0f0f0;
+        }
+
+        .wechat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin-right: 15px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .wechat-contact-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .wechat-contact-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+        }
+
+        .wechat-contact-preview {
+            font-size: 0.85rem;
+            color: #888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .wechat-main {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            background: var(--wechat-bg);
+        }
+
+        .wechat-header {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+
+        .wechat-header-info {
+            flex: 1;
+        }
+
+        .wechat-header-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+
+        .wechat-header-status {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .wechat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wechat-message {
+            max-width: 70%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .wechat-message.self {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .wechat-message-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            margin: 0 12px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .wechat-message-content {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            word-break: break-word;
+        }
+
+        .wechat-message.self .wechat-message-content {
+            background: var(--wechat-msg-self);
+        }
+
+        .wechat-message-content:before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: -8px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid white;
+        }
+
+        .wechat-message.self .wechat-message-content:before {
+            left: auto;
+            right: -8px;
+            border-right: none;
+            border-left: 8px solid var(--wechat-msg-self);
+        }
+
+        .wechat-message-text {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .wechat-message-time {
+            font-size: 0.75rem;
+            color: #888;
+            text-align: right;
+        }
+
+        .wechat-input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+
+        .wechat-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin-right: 12px;
+            font-size: 0.95rem;
+        }
+
+        .wechat-send-btn {
+            background: var(--wechat-green);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(7, 193, 96, 0.3);
+        }
+
+        .wechat-send-btn:hover {
+            background: #06ad56;
+            transform: scale(1.05);
+        }
+
+        .wechat-identity-selector {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px 15px;
+        }
+
+        .wechat-identity-selector label {
+            margin-right: 12px;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .wechat-identity-selector select {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .wechat-contact-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ai-settings {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: var(--smooth-shadow);
+        }
+
+        .ai-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .ai-toggle input {
+            width: auto;
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .custom-replies {
+            margin-top: 20px;
+        }
+
+        .reply-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .reply-item input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        /* 修复手机显示问题 */
+        @media (max-width: 600px) {
+            .dimension-grid, .vision-board, .chakra-container, .library-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emotion-scale {
+                flex-direction: column;
+            }
+
+            .emotion-level {
+                margin: 5px 0;
+            }
+
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .task-checkbox {
+                margin-bottom: 10px;
+            }
+
+            .task-content {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .task-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .history-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .history-date {
+                margin-bottom: 5px;
+            }
+
+            .history-content {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+
+            .history-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .wechat-container {
+                flex-direction: column;
+                height: 500px;
+            }
+
+            .wechat-sidebar {
+                width: 100%;
+                height: 40%;
+            }
+
+            .wechat-main {
+                width: 100%;
+                height: 60%;
+            }
+
+            .wechat-identity-selector {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .wechat-identity-selector label {
+                margin-bottom: 8px;
+            }
+
+            .wechat-identity-selector select {
+                width: 100%;
+            }
+
+            .wechat-contact-actions {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>显化系统</h1>
+            <p class="subtitle">创造你的理想人生 · 公主请选择你的新身份</p>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="identity">身份卡</div>
+            <div class="nav-tab" data-tab="vision">愿景板</div>
+            <div class="nav-tab" data-tab="wealth">财富值</div>
+            <div class="nav-tab" data-tab="script">新剧本</div>
+            <div class="nav-tab" data-tab="tasks">目标任务</div>
+            <div class="nav-tab" data-tab="chakras">脉轮</div>
+            <div class="nav-tab" data-tab="journal">打卡</div>
+            <div class="nav-tab" data-tab="emotions">情绪</div>
+            <div class="nav-tab" data-tab="wechat">伪视觉化聊天</div>
+        </div>
+
+        <!-- 身份卡 -->
+        <div class="tab-content active" id="identity">
+            <h2 class="section-title"><i class="fas fa-id-card"></i> 身份卡</h2>
+            <p class="card">从六个维度全方位设定你的新角色特性，建立可视化身份锚点，降低目标模糊性，行动力提升300%。</p>
+
+            <div class="dimension-grid">
+                <div class="form-group">
+                    <label for="identity-role">身份</label>
+                    <input type="text" id="identity-role" placeholder="例如：成功的创业者">
+                </div>
+                <div class="form-group">
+                    <label for="identity-relationships">人际关系</label>
+                    <input type="text" id="identity-relationships" placeholder="例如：被爱与支持包围">
+                </div>
+                <div class="form-group">
+                    <label for="identity-appearance">颜值</label>
+                    <input type="text" id="identity-appearance" placeholder="例如：自信美丽有魅力">
+                </div>
+                <div class="form-group">
+                    <label for="identity-body">身体</label>
+                    <input type="text" id="identity-body" placeholder="例如：健康有活力">
+                </div>
+                <div class="form-group">
+                    <label for="identity-wealth">财富值</label>
+                    <input type="text" id="identity-wealth" placeholder="例如：富足丰盛">
+                </div>
+                <div class="form-group">
+                    <label for="identity-lifestyle">生活状态</label>
+                    <input type="text" id="identity-lifestyle" placeholder="例如：自由充实">
+                </div>
+            </div>
+
+            <button class="btn btn-block" id="save-identity"><i class="fas fa-save"></i> 保存身份卡</button>
+
+            <h3 class="section-title" style="margin-top: 30px;">我的身份卡</h3>
+            <div class="history-list" id="identity-history"></div>
+        </div>
+
+        <!-- 愿景板 - 完全修复 -->
+        <div class="tab-content" id="vision">
+            <h2 class="section-title"><i class="fas fa-images"></i> 愿景板</h2>
+            <p class="card">将理想人生场景以图片/文字形式具象化，持续观想能激活θ脑波状态，直接向潜意识植入显化指令。</p>
+
+            <div class="vision-board" id="vision-board-container">
+                <!-- 愿景项将通过JS动态添加 -->
+            </div>
+
+            <div class="form-group">
+                <label for="vision-text">我的愿景肯定语</label>
+                <textarea id="vision-text" placeholder="写下你的愿景肯定语，例如：我值得拥有富足、快乐和健康的生活。"></textarea>
+            </div>
+
+            <button class="btn btn-block" id="add-vision-item"><i class="fas fa-plus"></i> 添加愿景项</button>
+            <button class="btn btn-block btn-secondary" id="save-vision"><i class="fas fa-save"></i> 保存愿景板</button>
+        </div>
+
+        <!-- 财富值 -->
+        <div class="tab-content" id="wealth">
+            <h2 class="section-title"><i class="fas fa-money-check-alt"></i> 财富值</h2>
+            <p class="card">虚拟财富操作能重构金钱认知框架，释放"不配得感"的潜意识阻碍。</p>
+
+            <div class="wealth-check">
+                <div>宇宙支票</div>
+                <div class="check-amount" id="check-amount-display">¥ 0</div>
+                <div>收款人：<span id="check-recipient">你的名字</span></div>
+                <div class="check-details">
+                    <div>账户：<span id="check-account-display">未设置</span></div>
+                    <div>日期：<span id="check-date">2023-11-15</span></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="wealth-amount">金额</label>
+                <input type="text" id="wealth-amount" placeholder="例如：50000">
+            </div>
+            <div class="form-group">
+                <label for="wealth-account">银行账户</label>
+                <input type="text" id="wealth-account" placeholder="例如：中国银行">
+            </div>
+            <div class="form-group">
+                <label for="wealth-purpose">收款内容</label>
+                <input type="text" id="wealth-purpose" placeholder="例如：副业收入">
+            </div>
+
+            <button class="btn btn-block" id="generate-check"><i class="fas fa-file-invoice-dollar"></i> 生成宇宙支票</button>
+            <button class="btn btn-block btn-secondary" id="save-wealth"><i class="fas fa-save"></i> 保存财富支票</button>
+
+            <h3 class="section-title" style="margin-top: 30px;">财富支票历史</h3>
+            <div class="history-list" id="wealth-history"></div>
+        </div>
+
+        <!-- 新剧本 -->
+        <div class="tab-content" id="script">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> 新剧本</h2>
+            <p class="card">通过改写人生故事释放旧有剧本限制，创造新的现实剧本。</p>
+
+            <div class="form-group">
+                <label for="script-title">剧本标题</label>
+                <input type="text" id="script-title" placeholder="例如：我的丰盛人生">
+            </div>
+            <div class="form-group">
+                <label for="script-content">剧本内容</label>
+                <textarea id="script-content" placeholder="写下你的人生新剧本，例如：我是一位充满自信和魅力的女性，每天都吸引着丰盛和美好的事物进入我的生活..."></textarea>
+            </div>
+
+            <button class="btn btn-block" id="save-script"><i class="fas fa-feather-alt"></i> 保存剧本</button>
+
+            <h3 class="section-title" style="margin-top: 30px;">我的剧本库</h3>
+            <div class="history-list" id="script-history"></div>
+        </div>
+
+        <!-- 目标任务 -->
+        <div class="tab-content" id="tasks">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> 目标任务</h2>
+            <p class="card">将宏大的显化目标拆解成具体的任务，跟随直觉以及宇宙的指引去做。</p>
+
+            <div class="form-group">
+                <label for="task-title">任务名称</label>
+                <input type="text" id="task-title" placeholder="例如：每日冥想">
+            </div>
+            <div class="form-group">
+                <label for="task-category">任务分类</label>
+                <select id="task-category">
+                    <option value="health">健身/养生</option>
+                    <option value="learning">学习</option>
+                    <option value="career">事业</option>
+                    <option value="relationship">关系</option>
+                    <option value="finance">财富</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="task-frequency">执行频率</label>
+                <select id="task-frequency">
+                    <option value="daily">每日</option>
+                    <option value="weekly">每周</option>
+                    <option value="monthly">每月</option>
+                </select>
+            </div>
+
+            <button class="btn btn-block" id="add-task"><i class="fas fa-plus"></i> 添加任务</button>
+
+            <h3 class="section-title" style="margin-top: 30px;">我的任务</h3>
+            <ul class="task-list" id="task-list">
+                <!-- 任务将通过JS动态添加 -->
+            </ul>
+        </div>
+
+        <!-- 脉轮 -->
+        <div class="tab-content" id="chakras">
+            <h2 class="section-title"><i class="fas fa-star"></i> 脉轮</h2>
+            <p class="card">通过激活人体七大能量中心的积极自我对话，重塑身心平衡，唤醒内在潜能与生命活力。</p>
+
+            <div class="chakra-container">
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-1"></div>
+                    <div>海底轮</div>
+                    <div class="chakra-desc">安全感与生存</div>
+                </div>
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-2"></div>
+                    <div>脐轮</div>
+                    <div class="chakra-desc">情感与创造力</div>
+                </div>
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-3"></div>
+                    <div>太阳轮</div>
+                    <div class="chakra-desc">意志力与自信</div>
+                </div>
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-4"></div>
+                    <div>心轮</div>
+                    <div class="chakra-desc">爱与慈悲</div>
+                </div>
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-5"></div>
+                    <div>喉轮</div>
+                    <div class="chakra-desc">表达与沟通</div>
+                </div>
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-6"></div>
+                    <div>眉心轮</div>
+                    <div class="chakra-desc">直觉与洞察</div>
+                </div>
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-7"></div>
+                    <div>顶轮</div>
+                    <div class="chakra-desc">灵性连接</div>
+                </div>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 30px;">脉轮肯定语</h3>
+            <div class="card">
+                <p><strong>海底轮：</strong>我是安全的，我扎根于大地，宇宙无限支持我。</p>
+                <p><strong>脐轮：</strong>我感受并尊重我的情绪，我的创造力源源不断。</p>
+                <p><strong>太阳轮：</strong>我自信且强大，我有能力创造我想要的生活。</p>
+                <p><strong>心轮：</strong>我爱与被爱，我向世界散发慈悲与善意。</p>
+                <p><strong>喉轮：</strong>我真实表达自己，我的话语充满力量与真诚。</p>
+                <p><strong>眉心轮：</strong>我信任我的直觉，我清晰地看到前方的道路。</p>
+                <p><strong>顶轮：</strong>我与宇宙智慧连接，我知晓一切皆有可能。</p>
+            </div>
+        </div>
+
+        <!-- 打卡 -->
+        <div class="tab-content" id="journal">
+            <h2 class="section-title"><i class="fas fa-calendar-check"></i> 打卡</h2>
+            <p class="card">每日打卡肯定语+成功日记/爱自己日记/感恩日记，保持每日高能量+加强目标显化。</p>
+
+            <div class="form-group">
+                <label for="journal-type">日记类型</label>
+                <select id="journal-type">
+                    <option value="gratitude">感恩日记</option>
+                    <option value="success">成功日记</option>
+                    <option value="self-love">爱自己日记</option>
+                    <option value="affirmation">肯定语</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="journal-content">日记内容</label>
+                <textarea id="journal-content" placeholder="写下你的感恩、成功、爱自己或肯定语..."></textarea>
+            </div>
+
+            <button class="btn btn-block" id="save-journal"><i class="fas fa-save"></i> 保存日记</button>
+
+            <h3 class="section-title" style="margin-top: 30px;">今日打卡</h3>
+            <div class="journal-entry" id="today-journal">
+                <!-- 今日日记将通过JS动态添加 -->
+            </div>
+
+            <h3 class="section-title" style="margin-top: 30px;">历史记录</h3>
+            <div class="history-list" id="journal-history"></div>
+        </div>
+
+        <!-- 情绪 -->
+        <div class="tab-content" id="emotions">
+            <h2 class="section-title"><i class="fas fa-heart"></i> 情绪记录</h2>
+            <p class="card">情绪记录与释放通过转化低频能量为高频状态，增强自我觉察与意图清晰度。</p>
+
+            <div class="emotion-scale">
+                <div class="emotion-level level-1" data-level="20">
+                    <div>羞愧</div>
+                    <div>20</div>
+                </div>
+                <div class="emotion-level level-2" data-level="30">
+                    <div>恐惧</div>
+                    <div>30</div>
+                </div>
+                <div class="emotion-level level-3" data-level="50">
+                    <div>愤怒</div>
+                    <div>50</div>
+                </div>
+                <div class="emotion-level level-4" data-level="85">
+                    <div>爱</div>
+                    <div>85</div>
+                </div>
+                <div class="emotion-level level-5" data-level="100">
+                    <div>平和</div>
+                    <div>100</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="emotion-level">当前情绪能量级别</label>
+                <input type="text" id="emotion-level-display" readonly>
+            </div>
+            <div class="form-group">
+                <label for="emotion-description">情绪描述</label>
+                <textarea id="emotion-description" placeholder="描述你当前的感受和情绪..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="emotion-release">情绪释放方法</label>
+                <select id="emotion-release">
+                    <option value="breathing">深呼吸</option>
+                    <option value="meditation">冥想</option>
+                    <option value="writing">书写释放</option>
+                    <option value="movement">身体运动</option>
+                    <option value="affirmation">肯定语</option>
+                </select>
+            </div>
+
+            <button class="btn btn-block" id="save-emotion"><i class="fas fa-heartbeat"></i> 记录并释放情绪</button>
+
+            <h3 class="section-title" style="margin-top: 30px;">情绪历史</h3>
+            <div class="history-list" id="emotion-history"></div>
+        </div>
+
+        <!-- 伪视觉化聊天 - 完全修复 -->
+        <div class="tab-content" id="wechat">
+            <h2 class="section-title"><i class="fas fa-comments"></i> 伪视觉化聊天</h2>
+            <p class="card">创建虚拟对话，模拟与任何人的聊天，用于显化练习和伪视觉化。</p>
+
+            <div class="form-group">
+                <label for="new-contact-name">联系人/群聊名称</label>
+                <input type="text" id="new-contact-name" placeholder="例如：SP、好友、家人群">
+            </div>
+            <div class="form-group">
+                <label for="new-contact-avatar">头像颜色</label>
+                <select id="new-contact-avatar">
+                    <option value="#9c88ff">紫色</option>
+                    <option value="#8c7ae6">深紫色</option>
+                    <option value="#e84118">红色</option>
+                    <option value="#44bd32">绿色</option>
+                    <option value="#fbc531">黄色</option>
+                    <option value="#00a8ff">蓝色</option>
+                </select>
+            </div>
+
+            <button class="btn btn-block btn-wechat" id="add-contact"><i class="fas fa-user-plus"></i> 添加联系人/群聊</button>
+
+            <div class="wechat-contact-actions">
+                <button class="btn btn-secondary" id="manage-identities"><i class="fas fa-users"></i> 管理身份</button>
+                <button class="btn btn-secondary" id="manage-replies"><i class="fas fa-comment-dots"></i> 管理回复</button>
+                <button class="btn btn-secondary" id="clear-chats"><i class="fas fa-trash"></i> 清空所有聊天</button>
+            </div>
+
+            <div class="wechat-container">
+                <div class="wechat-sidebar">
+                    <div class="wechat-search">
+                        <input type="text" placeholder="搜索">
+                    </div>
+                    <div class="wechat-contacts" id="wechat-contacts">
+                        <!-- 联系人列表将通过JS动态添加 -->
+                    </div>
+                </div>
+                <div class="wechat-main">
+                    <div class="wechat-header">
+                        <div class="wechat-header-info">
+                            <div class="wechat-header-name" id="current-contact-name">选择联系人开始聊天</div>
+                            <div class="wechat-header-status" id="current-contact-status">伪视觉化显化练习</div>
+                        </div>
+                    </div>
+                    <div class="wechat-messages" id="wechat-messages">
+                        <!-- 消息列表将通过JS动态添加 -->
+                    </div>
+                    <div class="wechat-input-area">
+                        <input type="text" class="wechat-input" id="wechat-input" placeholder="输入消息..." disabled>
+                        <button class="wechat-send-btn" id="wechat-send" disabled><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <div class="wechat-identity-selector">
+                        <label for="wechat-identity">发送身份:</label>
+                        <select id="wechat-identity">
+                            <option value="self">我自己</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI设置区域 -->
+            <div class="ai-settings">
+                <h3 class="section-title" style="margin-top: 0;"><i class="fas fa-robot"></i> AI回复设置</h3>
+                <div class="ai-toggle">
+                    <input type="checkbox" id="ai-enabled">
+                    <label for="ai-enabled">启用AI自动回复</label>
+                </div>
+                <div class="form-group">
+                    <label for="ai-personality">AI人设描述</label>
+                    <textarea id="ai-personality" placeholder="描述AI的角色和性格，例如：你是一个热情开朗的朋友，总是积极回应..."></textarea>
+                </div>
+                <button class="btn btn-block" id="save-ai-settings"><i class="fas fa-save"></i> 保存AI设置</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 愿景项添加模态框 -->
+    <div class="modal" id="vision-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加愿景项</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="image-preview" id="image-preview">
+                <i class="fas fa-image"></i>
+            </div>
+            <label for="vision-image" class="file-label">
+                <i class="fas fa-upload"></i> 选择图片
+            </label>
+            <input type="file" id="vision-image" class="file-input" accept="image/*">
+            <div class="form-group">
+                <label for="vision-item-text">愿景描述</label>
+                <input type="text" id="vision-item-text" placeholder="例如：我的理想家园">
+            </div>
+            <button class="btn btn-block" id="save-vision-item"><i class="fas fa-save"></i> 保存愿景项</button>
+        </div>
+    </div>
+
+    <!-- 身份管理模态框 -->
+    <div class="modal" id="identity-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">管理身份</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="new-identity-name">身份名称</label>
+                <input type="text" id="new-identity-name" placeholder="例如：SP、老板、导师">
+            </div>
+            <div class="form-group">
+                <label for="new-identity-avatar">头像颜色</label>
+                <select id="new-identity-avatar">
+                    <option value="#9c88ff">紫色</option>
+                    <option value="#8c7ae6">深紫色</option>
+                    <option value="#e84118">红色</option>
+                    <option value="#44bd32">绿色</option>
+                    <option value="#fbc531">黄色</option>
+                    <option value="#00a8ff">蓝色</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="identity-avatar-upload">或上传头像图片</label>
+                <label for="identity-avatar-upload" class="file-label">
+                    <i class="fas fa-upload"></i> 选择头像图片
+                </label>
+                <input type="file" id="identity-avatar-upload" class="file-input" accept="image/*">
+                <div class="image-preview" id="identity-avatar-preview" style="height: 100px;">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <button class="btn btn-block" id="add-identity"><i class="fas fa-plus"></i> 添加身份</button>
+            <h3 class="section-title" style="margin-top: 30px;">现有身份</h3>
+            <div class="history-list" id="identity-list">
+                <!-- 身份列表将通过JS动态添加 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 回复管理模态框 -->
+    <div class="modal" id="replies-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">管理自定义回复</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p class="card">在这里添加或编辑联系人的自定义回复，每条回复占一行。</p>
+            <div class="form-group">
+                <label for="reply-contact-select">选择联系人</label>
+                <select id="reply-contact-select">
+                    <option value="">请选择联系人</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="custom-replies">自定义回复 (每行一个)</label>
+                <textarea id="custom-replies" placeholder="输入自定义回复，每行一个"></textarea>
+            </div>
+            <button class="btn btn-block" id="save-replies"><i class="fas fa-save"></i> 保存回复</button>
+            <div class="custom-replies">
+                <h3 class="section-title" style="margin-top: 30px;">当前回复列表</h3>
+                <div id="replies-list">
+                    <!-- 回复列表将通过JS动态添加 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#" class="footer-btn active" data-tab="identity">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="#" class="footer-btn" data-tab="explore">
+            <i class="fas fa-compass"></i>
+            <span>探索</span>
+        </a>
+        <a href="#" class="footer-btn" data-tab="progress">
+            <i class="fas fa-chart-line"></i>
+            <span>进度</span>
+        </a>
+        <a href="#" class="footer-btn" data-tab="profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </footer>
+
+    <script>
+        // 数据存储对象
+        const appData = {
+            identity: [],
+            vision: [],
+            wealth: [],
+            scripts: [],
+            tasks: [],
+            journals: [],
+            emotions: [],
+            wechat: {
+                contacts: [],
+                identities: [
+                    { id: 'self', name: '我自己', avatar: '#9c88ff', avatarImage: '' }
+                ],
+                messages: {},
+                customReplies: {},
+                aiSettings: {
+                    enabled: false,
+                    personality: ''
+                }
+            }
+        };
+
+        // 当前选中的联系人
+        let currentContactId = null;
+
+        // DOM加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载保存的数据
+            loadSavedData();
+            // 初始化日期
+            initDate();
+            // 绑定事件监听器
+            bindEventListeners();
+            // 渲染初始数据
+            renderInitialData();
+        });
+
+        // 加载保存的数据
+        function loadSavedData() {
+            const savedData = localStorage.getItem('manifestationAppData');
+            if (savedData) {
+                Object.assign(appData, JSON.parse(savedData));
+            }
+        }
+
+        // 保存数据到本地存储
+        function saveData() {
+            localStorage.setItem('manifestationAppData', JSON.stringify(appData));
+        }
+
+        // 初始化日期
+        function initDate() {
+            const today = new Date();
+            const formattedDate = today.getFullYear() + '-' + 
+                String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                String(today.getDate()).padStart(2, '0');
+            document.getElementById('check-date').textContent = formattedDate;
+        }
+
+        // 绑定事件监听器
+        function bindEventListeners() {
+            // 切换标签页
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有active类
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前标签
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // 底部导航
+            document.querySelectorAll('.footer-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tab = btn.getAttribute('data-tab');
+                    
+                    // 移除所有active类
+                    document.querySelectorAll('.footer-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类
+                    btn.classList.add('active');
+                    
+                    // 特殊处理底部导航
+                    if (tab === 'explore') {
+                        document.querySelector('.nav-tab[data-tab="vision"]').click();
+                    } else if (tab === 'progress') {
+                        document.querySelector('.nav-tab[data-tab="tasks"]').click();
+                    } else if (tab === 'profile') {
+                        document.querySelector('.nav-tab[data-tab="journal"]').click();
+                    } else {
+                        document.querySelector(`.nav-tab[data-tab="${tab}"]`).click();
+                    }
+                });
+            });
+
+            // 保存身份卡
+            document.getElementById('save-identity').addEventListener('click', saveIdentity);
+
+            // 愿景板相关 - 完全修复
+            document.getElementById('add-vision-item').addEventListener('click', openVisionModal);
+            document.getElementById('save-vision-item').addEventListener('click', saveVisionItem);
+            document.getElementById('save-vision').addEventListener('click', saveVisionBoard);
+            document.querySelector('#vision-modal .close-modal').addEventListener('click', closeVisionModal);
+            document.getElementById('vision-image').addEventListener('change', handleImageUpload);
+
+            // 财富值相关
+            document.getElementById('generate-check').addEventListener('click', generateWealthCheck);
+            document.getElementById('save-wealth').addEventListener('click', saveWealthCheck);
+
+            // 新剧本相关
+            document.getElementById('save-script').addEventListener('click', saveScript);
+
+            // 目标任务相关
+            document.getElementById('add-task').addEventListener('click', addTask);
+
+            // 打卡相关
+            document.getElementById('save-journal').addEventListener('click', saveJournal);
+
+            // 情绪相关
+            document.querySelectorAll('.emotion-level').forEach(level => {
+                level.addEventListener('click', selectEmotionLevel);
+            });
+            document.getElementById('save-emotion').addEventListener('click', saveEmotion);
+
+            // 修复模态框外部点击关闭
+            document.getElementById('vision-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeVisionModal();
+                }
+            });
+
+            // 微信聊天相关 - 完全修复
+            document.getElementById('add-contact').addEventListener('click', addContact);
+            document.getElementById('manage-identities').addEventListener('click', openIdentityModal);
+            document.getElementById('manage-replies').addEventListener('click', openRepliesModal);
+            document.getElementById('clear-chats').addEventListener('click', clearAllChats);
+            document.getElementById('wechat-send').addEventListener('click', sendMessage);
+            document.getElementById('wechat-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            document.getElementById('add-identity').addEventListener('click', addIdentity);
+            document.getElementById('identity-avatar-upload').addEventListener('change', handleIdentityAvatarUpload);
+            document.getElementById('identity-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeIdentityModal();
+                }
+            });
+            document.querySelector('#identity-modal .close-modal').addEventListener('click', closeIdentityModal);
+            
+            // AI设置相关
+            document.getElementById('save-ai-settings').addEventListener('click', saveAiSettings);
+            
+            // 回复管理相关
+            document.getElementById('save-replies').addEventListener('click', saveReplies);
+            document.getElementById('reply-contact-select').addEventListener('change', loadRepliesForContact);
+            document.getElementById('replies-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeRepliesModal();
+                }
+            });
+            document.querySelector('#replies-modal .close-modal').addEventListener('click', closeRepliesModal);
+        }
+
+        // 渲染初始数据
+        function renderInitialData() {
+            renderIdentityHistory();
+            renderVisionBoard();
+            renderWealthHistory();
+            renderScriptHistory();
+            renderTaskList();
+            renderJournalHistory();
+            renderEmotionHistory();
+            renderWechatContacts();
+            renderIdentitySelector();
+            renderAiSettings();
+            renderReplyContactSelector();
+        }
+
+        // 保存身份卡
+        function saveIdentity() {
+            const identityData = {
+                role: document.getElementById('identity-role').value,
+                relationships: document.getElementById('identity-relationships').value,
+                appearance: document.getElementById('identity-appearance').value,
+                body: document.getElementById('identity-body').value,
+                wealth: document.getElementById('identity-wealth').value,
+                lifestyle: document.getElementById('identity-lifestyle').value,
+                date: new Date().toISOString()
+            };
+
+            if (!identityData.role) {
+                alert('请至少填写身份信息！');
+                return;
+            }
+
+            appData.identity.push(identityData);
+            saveData();
+            renderIdentityHistory();
+            
+            // 清空表单
+            document.getElementById('identity-role').value = '';
+            document.getElementById('identity-relationships').value = '';
+            document.getElementById('identity-appearance').value = '';
+            document.getElementById('identity-body').value = '';
+            document.getElementById('identity-wealth').value = '';
+            document.getElementById('identity-lifestyle').value = '';
+            
+            alert('身份卡已保存！');
+        }
+
+        // 渲染身份历史
+        function renderIdentityHistory() {
+            const historyContainer = document.getElementById('identity-history');
+            historyContainer.innerHTML = '';
+
+            if (appData.identity.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无身份卡记录</p>';
+                return;
+            }
+
+            appData.identity.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>身份：</strong>${item.role}<br>
+                        <strong>人际关系：</strong>${item.relationships}<br>
+                        <strong>颜值：</strong>${item.appearance}<br>
+                        <strong>身体：</strong>${item.body}<br>
+                        <strong>财富值：</strong>${item.wealth}<br>
+                        <strong>生活状态：</strong>${item.lifestyle}
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="loadIdentity(${index})"><i class="fas fa-edit"></i></button>
+                        <button class="history-btn" onclick="deleteIdentity(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 加载身份卡到表单
+        function loadIdentity(index) {
+            const item = appData.identity[index];
+            document.getElementById('identity-role').value = item.role || '';
+            document.getElementById('identity-relationships').value = item.relationships || '';
+            document.getElementById('identity-appearance').value = item.appearance || '';
+            document.getElementById('identity-body').value = item.body || '';
+            document.getElementById('identity-wealth').value = item.wealth || '';
+            document.getElementById('identity-lifestyle').value = item.lifestyle || '';
+        }
+
+        // 删除身份卡
+        function deleteIdentity(index) {
+            if (confirm('确定要删除这个身份卡吗？')) {
+                appData.identity.splice(index, 1);
+                saveData();
+                renderIdentityHistory();
+            }
+        }
+
+        // 打开愿景模态框
+        function openVisionModal() {
+            document.getElementById('vision-modal').style.display = 'flex';
+            // 重置表单状态
+            resetVisionForm();
+        }
+
+        // 关闭愿景模态框
+        function closeVisionModal() {
+            document.getElementById('vision-modal').style.display = 'none';
+        }
+
+        // 重置愿景表单
+        function resetVisionForm() {
+            document.getElementById('vision-item-text').value = '';
+            document.getElementById('image-preview').style.backgroundImage = '';
+            document.getElementById('image-preview').innerHTML = '<i class="fas fa-image"></i>';
+            document.getElementById('vision-image').value = '';
+        }
+
+        // 处理图片上传
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('image-preview').style.backgroundImage = `url(${e.target.result})`;
+                    document.getElementById('image-preview').innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 保存愿景项 - 完全修复
+        function saveVisionItem() {
+            const text = document.getElementById('vision-item-text').value;
+            const imagePreview = document.getElementById('image-preview');
+            const imageUrl = imagePreview.style.backgroundImage || 'url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)';
+
+            if (!text) {
+                alert('请输入愿景描述！');
+                return;
+            }
+
+            const visionItem = {
+                text: text,
+                image: imageUrl,
+                date: new Date().toISOString()
+            };
+
+            appData.vision.push(visionItem);
+            saveData();
+            renderVisionBoard();
+            closeVisionModal();
+            
+            alert('愿景项已添加！');
+        }
+
+        // 渲染愿景板 - 完全修复：显示所有愿景项
+        function renderVisionBoard() {
+            const container = document.getElementById('vision-board-container');
+            container.innerHTML = '';
+
+            if (appData.vision.length === 0) {
+                container.innerHTML = '<p class="card">暂无愿景项，请点击"添加愿景项"开始创建您的愿景板</p>';
+            } else {
+                appData.vision.forEach((item, index) => {
+                    const visionItem = document.createElement('div');
+                    visionItem.className = 'vision-item';
+                    visionItem.style.backgroundImage = item.image;
+                    visionItem.innerHTML = `
+                        <div class="vision-text">${item.text}</div>
+                        <div class="vision-actions">
+                            <button class="vision-btn" onclick="deleteVisionItem(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    container.appendChild(visionItem);
+                });
+            }
+        }
+
+        // 删除愿景项
+        function deleteVisionItem(index) {
+            if (confirm('确定要删除这个愿景项吗？')) {
+                appData.vision.splice(index, 1);
+                saveData();
+                renderVisionBoard();
+            }
+        }
+
+        // 保存愿景板
+        function saveVisionBoard() {
+            const affirmation = document.getElementById('vision-text').value;
+            if (affirmation) {
+                // 保存愿景板到历史
+                const visionBoard = {
+                    items: [...appData.vision],
+                    affirmation: affirmation,
+                    date: new Date().toISOString()
+                };
+                // 这里可以保存到愿景板历史
+                alert('愿景板已保存！');
+            } else {
+                alert('请输入愿景肯定语！');
+            }
+        }
+
+        // 生成财富支票
+        function generateWealthCheck() {
+            const amount = document.getElementById('wealth-amount').value;
+            const account = document.getElementById('wealth-account').value;
+            const purpose = document.getElementById('wealth-purpose').value;
+
+            if (!amount || !account || !purpose) {
+                alert('请填写完整的财富支票信息！');
+                return;
+            }
+
+            document.getElementById('check-amount-display').textContent = '¥ ' + amount;
+            document.getElementById('check-account-display').textContent = account;
+            
+            alert('宇宙支票已生成！');
+        }
+
+        // 保存财富支票
+        function saveWealthCheck() {
+            const amount = document.getElementById('wealth-amount').value;
+            const account = document.getElementById('wealth-account').value;
+            const purpose = document.getElementById('wealth-purpose').value;
+
+            if (!amount || !account || !purpose) {
+                alert('请填写完整的财富支票信息！');
+                return;
+            }
+
+            const wealthData = {
+                amount: amount,
+                account: account,
+                purpose: purpose,
+                date: new Date().toISOString()
+            };
+
+            appData.wealth.push(wealthData);
+            saveData();
+            renderWealthHistory();
+            
+            // 清空表单
+            document.getElementById('wealth-amount').value = '';
+            document.getElementById('wealth-account').value = '';
+            document.getElementById('wealth-purpose').value = '';
+            
+            alert('财富支票已保存！');
+        }
+
+        // 渲染财富历史
+        function renderWealthHistory() {
+            const historyContainer = document.getElementById('wealth-history');
+            historyContainer.innerHTML = '';
+
+            if (appData.wealth.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无财富支票记录</p>';
+                return;
+            }
+
+            appData.wealth.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>金额：</strong>¥ ${item.amount}<br>
+                        <strong>账户：</strong>${item.account}<br>
+                        <strong>用途：</strong>${item.purpose}
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteWealth(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 删除财富记录
+        function deleteWealth(index) {
+            if (confirm('确定要删除这个财富记录吗？')) {
+                appData.wealth.splice(index, 1);
+                saveData();
+                renderWealthHistory();
+            }
+        }
+
+        // 保存剧本
+        function saveScript() {
+            const title = document.getElementById('script-title').value;
+            const content = document.getElementById('script-content').value;
+
+            if (!title || !content) {
+                alert('请填写完整的剧本信息！');
+                return;
+            }
+
+            const scriptData = {
+                title: title,
+                content: content,
+                date: new Date().toISOString()
+            };
+
+            appData.scripts.push(scriptData);
+            saveData();
+            renderScriptHistory();
+            
+            // 清空表单
+            document.getElementById('script-title').value = '';
+            document.getElementById('script-content').value = '';
+            
+            alert('剧本已保存！');
+        }
+
+        // 渲染剧本历史
+        function renderScriptHistory() {
+            const historyContainer = document.getElementById('script-history');
+            historyContainer.innerHTML = '';
+
+            if (appData.scripts.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无剧本记录</p>';
+                return;
+            }
+
+            appData.scripts.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'journal-entry';
+                historyItem.innerHTML = `
+                    <div class="entry-date">${new Date(item.date).toLocaleDateString()} - ${item.title}</div>
+                    <div class="entry-content">${item.content}</div>
+                    <div class="history-actions" style="margin-top: 10px;">
+                        <button class="history-btn" onclick="deleteScript(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 删除剧本
+        function deleteScript(index) {
+            if (confirm('确定要删除这个剧本吗？')) {
+                appData.scripts.splice(index, 1);
+                saveData();
+                renderScriptHistory();
+            }
+        }
+
+        // 添加任务
+        function addTask() {
+            const title = document.getElementById('task-title').value;
+            const category = document.getElementById('task-category').value;
+            const frequency = document.getElementById('task-frequency').value;
+
+            if (!title) {
+                alert('请输入任务名称！');
+                return;
+            }
+
+            const taskData = {
+                title: title,
+                category: category,
+                frequency: frequency,
+                completed: false,
+                date: new Date().toISOString()
+            };
+
+            appData.tasks.push(taskData);
+            saveData();
+            renderTaskList();
+            
+            // 清空表单
+            document.getElementById('task-title').value = '';
+            
+            alert('任务已添加！');
+        }
+
+        // 渲染任务列表
+        function renderTaskList() {
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+
+            if (appData.tasks.length === 0) {
+                taskList.innerHTML = '<p class="card">暂无任务，请添加您的第一个任务</p>';
+            } else {
+                appData.tasks.forEach((task, index) => {
+                    const taskItem = document.createElement('li');
+                    taskItem.className = 'task-item';
+                    taskItem.innerHTML = `
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${index})">
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-desc">${getCategoryName(task.category)} - ${getFrequencyName(task.frequency)}</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="history-btn" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    taskList.appendChild(taskItem);
+                });
+            }
+        }
+
+        // 获取分类名称
+        function getCategoryName(category) {
+            const categories = {
+                'health': '健身/养生',
+                'learning': '学习',
+                'career': '事业',
+                'relationship': '关系',
+                'finance': '财富'
+            };
+            return categories[category] || category;
+        }
+
+        // 获取频率名称
+        function getFrequencyName(frequency) {
+            const frequencies = {
+                'daily': '每日',
+                'weekly': '每周',
+                'monthly': '每月'
+            };
+            return frequencies[frequency] || frequency;
+        }
+
+        // 切换任务完成状态
+        function toggleTask(index) {
+            appData.tasks[index].completed = !appData.tasks[index].completed;
+            saveData();
+        }
+
+        // 删除任务
+        function deleteTask(index) {
+            if (confirm('确定要删除这个任务吗？')) {
+                appData.tasks.splice(index, 1);
+                saveData();
+                renderTaskList();
+            }
+        }
+
+        // 保存日记
+        function saveJournal() {
+            const type = document.getElementById('journal-type').value;
+            const content = document.getElementById('journal-content').value;
+
+            if (!content) {
+                alert('请输入日记内容！');
+                return;
+            }
+
+            const journalData = {
+                type: type,
+                content: content,
+                date: new Date().toISOString()
+            };
+
+            appData.journals.push(journalData);
+            saveData();
+            renderJournalHistory();
+            
+            // 清空表单
+            document.getElementById('journal-content').value = '';
+            
+            alert('日记已保存！');
+        }
+
+        // 渲染日记历史
+        function renderJournalHistory() {
+            const historyContainer = document.getElementById('journal-history');
+            const todayContainer = document.getElementById('today-journal');
+            historyContainer.innerHTML = '';
+            todayContainer.innerHTML = '';
+
+            if (appData.journals.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无日记记录</p>';
+                todayContainer.innerHTML = '<p class="card">今日暂无日记</p>';
+                return;
+            }
+
+            const today = new Date().toDateString();
+            let todayFound = false;
+
+            appData.journals.forEach((item, index) => {
+                const itemDate = new Date(item.date).toDateString();
+                
+                // 显示今日日记
+                if (itemDate === today && !todayFound) {
+                    todayContainer.innerHTML = `
+                        <div class="entry-date">${new Date(item.date).toLocaleDateString()}</div>
+                        <div class="entry-content">
+                            <p><strong>${getJournalTypeName(item.type)}：</strong>${item.content}</p>
+                        </div>
+                    `;
+                    todayFound = true;
+                }
+                
+                // 添加到历史记录
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>${getJournalTypeName(item.type)}</strong>: ${item.content.substring(0, 50)}...
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteJournal(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+
+            if (!todayFound) {
+                todayContainer.innerHTML = '<p class="card">今日暂无日记</p>';
+            }
+        }
+
+        // 获取日记类型名称
+        function getJournalTypeName(type) {
+            const typeNames = {
+                'gratitude': '感恩日记',
+                'success': '成功日记',
+                'self-love': '爱自己日记',
+                'affirmation': '肯定语'
+            };
+            return typeNames[type] || type;
+        }
+
+        // 删除日记
+        function deleteJournal(index) {
+            if (confirm('确定要删除这篇日记吗？')) {
+                appData.journals.splice(index, 1);
+                saveData();
+                renderJournalHistory();
+            }
+        }
+
+        // 选择情绪级别
+        function selectEmotionLevel(event) {
+            document.querySelectorAll('.emotion-level').forEach(level => {
+                level.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            const level = event.currentTarget.getAttribute('data-level');
+            const levelText = event.currentTarget.querySelector('div:first-child').textContent;
+            document.getElementById('emotion-level-display').value = `${levelText} (${level})`;
+        }
+
+        // 保存情绪记录
+        function saveEmotion() {
+            const activeLevel = document.querySelector('.emotion-level.active');
+            if (!activeLevel) {
+                alert('请选择情绪级别！');
+                return;
+            }
+
+            const level = activeLevel.getAttribute('data-level');
+            const levelText = activeLevel.querySelector('div:first-child').textContent;
+            const description = document.getElementById('emotion-description').value;
+            const releaseMethod = document.getElementById('emotion-release').value;
+
+            if (!description) {
+                alert('请输入情绪描述！');
+                return;
+            }
+
+            const emotionData = {
+                level: level,
+                levelText: levelText,
+                description: description,
+                releaseMethod: releaseMethod,
+                date: new Date().toISOString()
+            };
+
+            appData.emotions.push(emotionData);
+            saveData();
+            renderEmotionHistory();
+            
+            // 清空表单
+            document.getElementById('emotion-description').value = '';
+            document.querySelectorAll('.emotion-level').forEach(level => {
+                level.classList.remove('active');
+            });
+            document.getElementById('emotion-level-display').value = '';
+            
+            alert('情绪记录已保存！');
+        }
+
+        // 渲染情绪历史
+        function renderEmotionHistory() {
+            const historyContainer = document.getElementById('emotion-history');
+            historyContainer.innerHTML = '';
+
+            if (appData.emotions.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无情绪记录</p>';
+                return;
+            }
+
+            appData.emotions.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>${item.levelText} (${item.level})</strong>: ${item.description}<br>
+                        <strong>释放方法：</strong>${getReleaseMethodName(item.releaseMethod)}
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteEmotion(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 获取释放方法名称
+        function getReleaseMethodName(method) {
+            const methods = {
+                'breathing': '深呼吸',
+                'meditation': '冥想',
+                'writing': '书写释放',
+                'movement': '身体运动',
+                'affirmation': '肯定语'
+            };
+            return methods[method] || method;
+        }
+
+        // 删除情绪记录
+        function deleteEmotion(index) {
+            if (confirm('确定要删除这个情绪记录吗？')) {
+                appData.emotions.splice(index, 1);
+                saveData();
+                renderEmotionHistory();
+            }
+        }
+
+        // 微信聊天功能 - 完全修复
+        function addContact() {
+            const name = document.getElementById('new-contact-name').value;
+            const avatar = document.getElementById('new-contact-avatar').value;
+
+            if (!name) {
+                alert('请输入联系人/群聊名称！');
+                return;
+            }
+
+            const contactId = 'contact_' + Date.now();
+            const contact = {
+                id: contactId,
+                name: name,
+                avatar: avatar,
+                avatarImage: '',
+                lastMessage: '',
+                lastTime: new Date().toISOString()
+            };
+
+            appData.wechat.contacts.push(contact);
+            appData.wechat.messages[contactId] = [];
+            saveData();
+            renderWechatContacts();
+            
+            // 清空表单
+            document.getElementById('new-contact-name').value = '';
+            
+            alert('联系人/群聊已添加！');
+        }
+
+        function renderWechatContacts() {
+            const contactsContainer = document.getElementById('wechat-contacts');
+            contactsContainer.innerHTML = '';
+
+            if (appData.wechat.contacts.length === 0) {
+                contactsContainer.innerHTML = '<p class="card" style="margin: 15px;">暂无联系人，请添加联系人/群聊</p>';
+                return;
+            }
+
+            appData.wechat.contacts.forEach(contact => {
+                const contactElement = document.createElement('div');
+                contactElement.className = 'wechat-contact';
+                if (contact.id === currentContactId) {
+                    contactElement.classList.add('active');
+                }
+
+                let avatarContent = contact.name.charAt(0);
+                let avatarStyle = `background-color: ${contact.avatar}`;
+                
+                if (contact.avatarImage) {
+                    avatarStyle = `background-image: url(${contact.avatarImage}); background-color: transparent`;
+                    avatarContent = '';
+                }
+
+                contactElement.innerHTML = `
+                    <div class="wechat-avatar" style="${avatarStyle}">${avatarContent}</div>
+                    <div class="wechat-contact-info">
+                        <div class="wechat-contact-name">${contact.name}</div>
+                        <div class="wechat-contact-preview">${contact.lastMessage || '暂无消息'}</div>
+                    </div>
+                `;
+
+                contactElement.addEventListener('click', () => selectContact(contact.id));
+                contactsContainer.appendChild(contactElement);
+            });
+            
+            // 更新回复管理中的联系人列表
+            renderReplyContactSelector();
+        }
+
+        function selectContact(contactId) {
+            currentContactId = contactId;
+            renderWechatContacts();
+            renderWechatMessages();
+            
+            const contact = appData.wechat.contacts.find(c => c.id === contactId);
+            document.getElementById('current-contact-name').textContent = contact.name;
+            document.getElementById('current-contact-status').textContent = '在线';
+            
+            // 启用输入框和发送按钮
+            document.getElementById('wechat-input').disabled = false;
+            document.getElementById('wechat-send').disabled = false;
+            
+            // 自动滚动到底部
+            setTimeout(() => {
+                const messagesContainer = document.getElementById('wechat-messages');
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 100);
+        }
+
+        function renderWechatMessages() {
+            const messagesContainer = document.getElementById('wechat-messages');
+            messagesContainer.innerHTML = '';
+
+            if (!currentContactId || !appData.wechat.messages[currentContactId]) {
+                messagesContainer.innerHTML = '<p class="card" style="text-align: center; margin: 20px;">选择联系人开始聊天</p>';
+                return;
+            }
+
+            const messages = appData.wechat.messages[currentContactId];
+            if (messages.length === 0) {
+                messagesContainer.innerHTML = '<p class="card" style="text-align: center; margin: 20px;">开始对话吧！</p>';
+                return;
+            }
+
+            messages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `wechat-message ${message.sender === 'self' ? 'self' : ''}`;
+                
+                const senderIdentity = appData.wechat.identities.find(id => id.id === message.sender);
+                const senderName = senderIdentity ? senderIdentity.name : '未知';
+                
+                let senderAvatar = senderIdentity ? senderIdentity.avatar : '#9c88ff';
+                let avatarContent = senderName.charAt(0);
+                let avatarStyle = `background-color: ${senderAvatar}`;
+                
+                if (senderIdentity && senderIdentity.avatarImage) {
+                    avatarStyle = `background-image: url(${senderIdentity.avatarImage}); background-color: transparent`;
+                    avatarContent = '';
+                }
+
+                messageElement.innerHTML = `
+                    <div class="wechat-message-avatar" style="${avatarStyle}">${avatarContent}</div>
+                    <div class="wechat-message-content">
+                        <div class="wechat-message-text">${message.text}</div>
+                        <div class="wechat-message-time">${formatTime(message.time)}</div>
+                    </div>
+                `;
+
+                messagesContainer.appendChild(messageElement);
+            });
+
+            // 滚动到底部
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            if (!currentContactId) {
+                alert('请先选择联系人！');
+                return;
+            }
+
+            const input = document.getElementById('wechat-input');
+            const text = input.value.trim();
+            if (!text) {
+                return;
+            }
+
+            const identitySelect = document.getElementById('wechat-identity');
+            const sender = identitySelect.value;
+
+            const message = {
+                sender: sender,
+                text: text,
+                time: new Date().toISOString()
+            };
+
+            // 添加到消息记录
+            if (!appData.wechat.messages[currentContactId]) {
+                appData.wechat.messages[currentContactId] = [];
+            }
+            appData.wechat.messages[currentContactId].push(message);
+
+            // 更新联系人最后消息
+            const contact = appData.wechat.contacts.find(c => c.id === currentContactId);
+            if (contact) {
+                contact.lastMessage = text;
+                contact.lastTime = new Date().toISOString();
+            }
+
+            saveData();
+            renderWechatMessages();
+            renderWechatContacts();
+
+            // 清空输入框
+            input.value = '';
+
+            // 自动回复（可选功能）
+            if (sender === 'self') {
+                setTimeout(() => {
+                    let replyText = '';
+                    
+                    // 如果有自定义回复，优先使用
+                    if (appData.wechat.customReplies[currentContactId] && 
+                        appData.wechat.customReplies[currentContactId].length > 0) {
+                        const customReplies = appData.wechat.customReplies[currentContactId];
+                        replyText = customReplies[Math.floor(Math.random() * customReplies.length)];
+                    } 
+                    // 如果启用了AI回复，使用AI生成回复
+                    else if (appData.wechat.aiSettings.enabled) {
+                        replyText = generateAiReply(text);
+                    }
+                    // 否则使用默认回复
+                    else {
+                        const defaultReplies = [
+                            "哇！太棒了！",
+                            "我完全同意你的看法！",
+                            "这真是个好消息！",
+                            "你真是太厉害了！",
+                            "为你感到高兴！"
+                        ];
+                        replyText = defaultReplies[Math.floor(Math.random() * defaultReplies.length)];
+                    }
+
+                    const replyMessage = {
+                        sender: currentContactId,
+                        text: replyText,
+                        time: new Date().toISOString()
+                    };
+
+                    appData.wechat.messages[currentContactId].push(replyMessage);
+                    saveData();
+                    renderWechatMessages();
+                    renderWechatContacts();
+                }, 1000);
+            }
+        }
+
+        // 生成AI回复
+        function generateAiReply(userMessage) {
+            // 这是一个简化的模拟AI回复生成
+            // 在实际应用中，这里应该调用AI API
+            const personality = appData.wechat.aiSettings.personality || '';
+            
+            // 根据人设生成回复的简单逻辑
+            if (personality.includes('热情') || personality.includes('开朗')) {
+                const replies = [
+                    "太棒了！我为你感到高兴！",
+                    "这真是个好消息！继续保持！",
+                    "哇，你做得真好！",
+                    "我完全支持你的决定！",
+                    "你真是太优秀了！"
+                ];
+                return replies[Math.floor(Math.random() * replies.length)];
+            } else if (personality.includes('冷静') || personality.includes('理性')) {
+                const replies = [
+                    "我理解你的想法。",
+                    "这是一个合理的决定。",
+                    "从逻辑上看，这是正确的选择。",
+                    "我同意你的观点。",
+                    "这个想法很有建设性。"
+                ];
+                return replies[Math.floor(Math.random() * replies.length)];
+            } else {
+                const replies = [
+                    "我明白了。",
+                    "好的。",
+                    "了解。",
+                    "收到。",
+                    "嗯。"
+                ];
+                return replies[Math.floor(Math.random() * replies.length)];
+            }
+        }
+
+        function formatTime(timeString) {
+            const time = new Date(timeString);
+            return `${time.getHours().toString().padStart(2, '0')}:${time.getMinutes().toString().padStart(2, '0')}`;
+        }
+
+        function openIdentityModal() {
+            document.getElementById('identity-modal').style.display = 'flex';
+            renderIdentityList();
+        }
+
+        function closeIdentityModal() {
+            document.getElementById('identity-modal').style.display = 'none';
+        }
+
+        function handleIdentityAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('identity-avatar-preview').style.backgroundImage = `url(${e.target.result})`;
+                    document.getElementById('identity-avatar-preview').innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addIdentity() {
+            const name = document.getElementById('new-identity-name').value;
+            const avatar = document.getElementById('new-identity-avatar').value;
+            const avatarPreview = document.getElementById('identity-avatar-preview');
+            const avatarImage = avatarPreview.style.backgroundImage || '';
+
+            if (!name) {
+                alert('请输入身份名称！');
+                return;
+            }
+
+            const identityId = 'identity_' + Date.now();
+            const identity = {
+                id: identityId,
+                name: name,
+                avatar: avatar,
+                avatarImage: avatarImage
+            };
+
+            appData.wechat.identities.push(identity);
+            saveData();
+            renderIdentityList();
+            renderIdentitySelector();
+            
+            // 清空表单
+            document.getElementById('new-identity-name').value = '';
+            document.getElementById('identity-avatar-preview').style.backgroundImage = '';
+            document.getElementById('identity-avatar-preview').innerHTML = '<i class="fas fa-user"></i>';
+            document.getElementById('identity-avatar-upload').value = '';
+            
+            alert('身份已添加！');
+        }
+
+        function renderIdentityList() {
+            const identityList = document.getElementById('identity-list');
+            identityList.innerHTML = '';
+
+            appData.wechat.identities.forEach((identity, index) => {
+                if (identity.id === 'self') return; // 跳过默认身份
+
+                let avatarContent = identity.name.charAt(0);
+                let avatarStyle = `background-color: ${identity.avatar}`;
+                
+                if (identity.avatarImage) {
+                    avatarStyle = `background-image: url(${identity.avatarImage}); background-color: transparent`;
+                    avatarContent = '';
+                }
+
+                const identityItem = document.createElement('div');
+                identityItem.className = 'history-item';
+                identityItem.innerHTML = `
+                    <div class="wechat-avatar" style="${avatarStyle}; width: 40px; height: 40px; margin-right: 10px;">${avatarContent}</div>
+                    <div class="history-content">${identity.name}</div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteIdentityFromList(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                identityList.appendChild(identityItem);
+            });
+        }
+
+        function deleteIdentityFromList(index) {
+            if (confirm('确定要删除这个身份吗？')) {
+                appData.wechat.identities.splice(index, 1);
+                saveData();
+                renderIdentityList();
+                renderIdentitySelector();
+            }
+        }
+
+        function renderIdentitySelector() {
+            const identitySelector = document.getElementById('wechat-identity');
+            identitySelector.innerHTML = '';
+
+            appData.wechat.identities.forEach(identity => {
+                const option = document.createElement('option');
+                option.value = identity.id;
+                option.textContent = identity.name;
+                identitySelector.appendChild(option);
+            });
+        }
+
+        function clearAllChats() {
+            if (confirm('确定要清空所有聊天记录吗？此操作不可撤销！')) {
+                appData.wechat.messages = {};
+                appData.wechat.contacts.forEach(contact => {
+                    contact.lastMessage = '';
+                    contact.lastTime = new Date().toISOString();
+                });
+                saveData();
+                renderWechatContacts();
+                renderWechatMessages();
+                alert('所有聊天记录已清空！');
+            }
+        }
+
+        // AI设置功能
+        function renderAiSettings() {
+            document.getElementById('ai-enabled').checked = appData.wechat.aiSettings.enabled;
+            document.getElementById('ai-personality').value = appData.wechat.aiSettings.personality || '';
+        }
+
+        function saveAiSettings() {
+            appData.wechat.aiSettings.enabled = document.getElementById('ai-enabled').checked;
+            appData.wechat.aiSettings.personality = document.getElementById('ai-personality').value;
+            saveData();
+            alert('AI设置已保存！');
+        }
+
+        // 回复管理功能
+        function openRepliesModal() {
+            document.getElementById('replies-modal').style.display = 'flex';
+            renderReplyContactSelector();
+        }
+
+        function closeRepliesModal() {
+            document.getElementById('replies-modal').style.display = 'none';
+        }
+
+        function renderReplyContactSelector() {
+            const contactSelector = document.getElementById('reply-contact-select');
+            contactSelector.innerHTML = '<option value="">请选择联系人</option>';
+
+            appData.wechat.contacts.forEach(contact => {
+                const option = document.createElement('option');
+                option.value = contact.id;
+                option.textContent = contact.name;
+                contactSelector.appendChild(option);
+            });
+        }
+
+        function loadRepliesForContact() {
+            const contactId = document.getElementById('reply-contact-select').value;
+            const repliesTextarea = document.getElementById('custom-replies');
+            const repliesList = document.getElementById('replies-list');
+            
+            repliesTextarea.value = '';
+            repliesList.innerHTML = '';
+
+            if (!contactId) return;
+
+            if (appData.wechat.customReplies[contactId]) {
+                repliesTextarea.value = appData.wechat.customReplies[contactId].join('\n');
+                
+                appData.wechat.customReplies[contactId].forEach((reply, index) => {
+                    const replyItem = document.createElement('div');
+                    replyItem.className = 'reply-item';
+                    replyItem.innerHTML = `
+                        <input type="text" value="${reply}" data-index="${index}">
+                        <button class="history-btn" onclick="editReply('${contactId}', ${index})"><i class="fas fa-edit"></i></button>
+                        <button class="history-btn" onclick="deleteReply('${contactId}', ${index})"><i class="fas fa-trash"></i></button>
+                    `;
+                    repliesList.appendChild(replyItem);
+                });
+            }
+        }
+
+        function saveReplies() {
+            const contactId = document.getElementById('reply-contact-select').value;
+            const repliesText = document.getElementById('custom-replies').value;
+
+            if (!contactId) {
+                alert('请选择联系人！');
+                return;
+            }
+
+            const replies = repliesText.split('\n').filter(reply => reply.trim() !== '');
+            appData.wechat.customReplies[contactId] = replies;
+            saveData();
+            loadRepliesForContact();
+            alert('回复已保存！');
+        }
+
+        function editReply(contactId, index) {
+            const replyInput = document.querySelector(`input[data-index="${index}"]`);
+            const newReply = replyInput.value.trim();
+            
+            if (newReply) {
+                appData.wechat.customReplies[contactId][index] = newReply;
+                saveData();
+                alert('回复已更新！');
+            }
+        }
+
+        function deleteReply(contactId, index) {
+            if (confirm('确定要删除这个回复吗？')) {
+                appData.wechat.customReplies[contactId].splice(index, 1);
+                saveData();
+                loadRepliesForContact();
+            }
+        }
+    </script>
+</body>
+</html>
