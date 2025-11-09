@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifestation System V2</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #f3f6fb;
+            --card: #ffffff;
+            --muted: #7b8188;
+            --primary: #6c5ce7;
+            --accent: #00b894;
+            --glass: rgba(255,255,255,0.7);
+            --shadow: 0 6px 20px rgba(35,40,50,0.08);
+            --radius: 14px;
+            --maxw: 1100px;
+            --accent-2: #74b9ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #eef2ff 0%, #f7fbff 50%);
+            color: #222;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app {
+            width: 100%;
+            max-width: var(--maxw);
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,255,0.98));
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header.app-header {
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #eef2f8;
+            background: linear-gradient(90deg, rgba(108,92,231,0.06), rgba(116,185,255,0.02));
+        }
+
+        header .title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--primary);
+            letter-spacing: 0.2px;
+        }
+
+        .subtitle {
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .header-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.06);
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--primary);
+            border: none;
+        }
+
+        main.content {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 18px;
+            padding: 18px;
+            flex: 1;
+        }
+
+        /* 左侧菜单 */
+        .sidebar {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tab {
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .tab.active {
+            background: linear-gradient(90deg, rgba(108,92,231,0.12), rgba(116,185,255,0.06));
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .panel {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(20,20,40,0.02);
+        }
+
+        .search {
+            display: flex;
+            gap: 8px;
+        }
+
+        input.search-input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #eef3fb;
+            background: transparent;
+        }
+
+        /* 右侧主区域 */
+        .main-area {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 6px 20px rgba(15,20,40,0.03);
+        }
+
+        .section h2 {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Vision board */
+        .vision-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .vision-card {
+            height: 170px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: #f6f7fb;
+            border: 1px solid #eef2fb;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform .18s, box-shadow .18s;
+        }
+
+        .vision-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 28px rgba(60,60,90,0.06);
+        }
+
+        .vision-card .overlay {
+            padding: 10px;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.42) 100%);
+            color: white;
+        }
+
+        .vision-card .top-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255,255,255,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .small {
+            font-size: .85rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10,12,20,0.45);
+            z-index: 9999;
+            padding: 20px;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--card);
+            padding: 16px;
+            border-radius: 12px;
+            max-width: 760px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(20,20,40,0.2);
+            max-height: 86vh;
+            overflow: auto;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 260px;
+            border-radius: 10px;
+            background: #f5f7fb;
+            border: 2px dashed #e8eef8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9aa4b2;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .avatar-preview {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f0f4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 90px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eef3fb;
+            background: transparent;
+            resize: vertical;
+        }
+
+        input[type=text], input[type=url], select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eef3fb;
+            width: 100%;
+            background: transparent;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 420px;
+            overflow: auto;
+            padding-right: 6px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: linear-gradient(90deg, rgba(0,0,0,0.02), rgba(255,255,255,0.02));
+        }
+
+        .contact-item.active {
+            background: linear-gradient(90deg, rgba(108,92,231,0.08), rgba(116,185,255,0.02));
+            border-radius: 10px;
+        }
+
+        .avatar-small {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f4ff;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .contact-meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-name {
+            font-weight: 700;
+            color: #111;
+        }
+
+        .contact-last {
+            font-size: .82rem;
+            color: var(--muted);
+        }
+
+        /* Chat area */
+        .chat-area {
+            display: flex;
+            flex-direction: column;
+            height: 520px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-bottom: 1px solid #f0f4f8;
+            background: linear-gradient(90deg, rgba(255,255,255,0.6), transparent);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow: auto;
+            background: linear-gradient(180deg,#fbfdff, #f7fbff);
+        }
+
+        .msg {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            max-width: 75%;
+            margin-bottom: 12px;
+        }
+
+        .msg.me {
+            margin-left: auto;
+            flex-direction: row-reverse;
+        }
+
+        .bubble {
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 6px 18px rgba(20,20,40,0.04);
+        }
+
+        .bubble.me {
+            background: linear-gradient(90deg, var(--primary), var(--accent-2));
+            color: white;
+        }
+
+        .msg-time {
+            font-size: .72rem;
+            color: var(--muted);
+            margin-top: 6px;
+            text-align: right;
+        }
+
+        .msg-actions {
+            display: flex;
+            gap: 6px;
+            margin-left: 6px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            border-top: 1px solid #eef3fb;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #eef3fb;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 999px;
+            background: var(--glass);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .small-muted {
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #eef2fb;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+
+        footer.app-footer {
+            padding: 12px 18px;
+            border-top: 1px solid #eef2f8;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            background: transparent;
+        }
+
+        @media (max-width: 980px) {
+            main.content {
+                grid-template-columns: 1fr;
+                padding: 12px;
+            }
+            
+            .chat-area {
+                height: 420px;
+            }
+            
+            .header-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .app {
+                border-radius: 12px;
+            }
+            
+            header.app-header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            
+            .header-actions {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .vision-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-card {
+                margin: 10px;
+                max-height: 90vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chat-area {
+                height: 350px;
+            }
+            
+            .msg {
+                max-width: 85%;
+            }
+            
+            .section {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app" id="appRoot">
+        <header class="app-header">
+            <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.1rem">MS</div>
+                <div class="title">
+                    <h1>Manifestation System V2</h1>
+                    <div class="subtitle">愿景板 · 聊天 · AI 占位 · 本地保存</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn" id="open-vision-modal"><i class="fas fa-images"></i> 新建愿景</button>
+                <button class="btn secondary" id="open-contact-modal"><i class="fas fa-user-plus"></i> 新建联系人</button>
+                <button class="btn ghost" id="export-data" title="导出数据为 JSON"><i class="fas fa-download"></i> 导出</button>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- 左侧 -->
+            <aside class="sidebar">
+                <div class="panel">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                        <div style="font-weight:700">主菜单</div>
+                        <div class="small-muted">本地工作台</div>
+                    </div>
+                    <div class="tabs" id="mainTabs">
+                        <div class="tab active" data-tab="visionTab"><i class="fas fa-images"></i> 愿景板</div>
+                        <div class="tab" data-tab="identityTab"><i class="fas fa-id-card"></i> 身份卡</div>
+                        <div class="tab" data-tab="wealthTab"><i class="fas fa-coins"></i> 财富</div>
+                        <div class="tab" data-tab="tasksTab"><i class="fas fa-list-check"></i> 任务</div>
+                        <div class="tab" data-tab="chatTab"><i class="fas fa-comments"></i> 聊天</div>
+                        <div class="tab" data-tab="settingsTab"><i class="fas fa-cog"></i> 设置</div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <div style="font-weight:700">联系人</div>
+                        <div class="muted small">可上传头像</div>
+                    </div>
+                    <div style="height:8px"></div>
+                    <div class="contact-list" id="contactList"></div>
+                </div>
+
+                <div class="panel">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <div style="font-weight:700">近期动作</div>
+                        <div class="small-muted">历史</div>
+                    </div>
+                    <div class="list" id="activityList" style="margin-top:8px"></div>
+                </div>
+            </aside>
+
+            <!-- 右侧主区域 -->
+            <section class="main-area">
+                <!-- Vision area -->
+                <div class="section" id="visionTab">
+                    <h2><i class="fas fa-images"></i> 愿景板</h2>
+                    <p class="muted">上传图片、写下肯定语，持续观想。图片将保存在本地（dataURL）。</p>
+                    <div style="height:12px"></div>
+                    <div class="vision-board" id="visionBoard"></div>
+                </div>
+
+                <!-- Identity -->
+                <div class="section" id="identityTab" style="display:none">
+                    <h2><i class="fas fa-id-card"></i> 身份卡</h2>
+                    <div class="grid-2">
+                        <div>
+                            <label>身份名称</label>
+                            <input type="text" id="identityName" placeholder="例如：自信的我">
+                        </div>
+                        <div>
+                            <label>核心肯定语</label>
+                            <input type="text" id="identityAffirm" placeholder="例如：我值得更好">
+                        </div>
+                    </div>
+                    <div style="height:8px"></div>
+                    <button class="btn" id="saveIdentityBtn"><i class="fas fa-save"></i> 保存身份卡</button>
+                    <div style="height:10px"></div>
+                    <div id="identityList"></div>
+                </div>
+
+                <!-- Wealth -->
+                <div class="section" id="wealthTab" style="display:none">
+                    <h2><i class="fas fa-coins"></i> 财富视图</h2>
+                    <p class="muted">简易财富记录（可扩展）</p>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <input type="text" id="wealthNote" placeholder="记录 / 目标">
+                        <button class="btn" id="saveWealth"><i class="fas fa-plus"></i> 添加</button>
+                    </div>
+                    <div id="wealthList" style="margin-top:12px"></div>
+                </div>
+
+                <!-- Tasks -->
+                <div class="section" id="tasksTab" style="display:none">
+                    <h2><i class="fas fa-list-check"></i> 任务</h2>
+                    <p class="muted">每日任务与进度</p>
+                    <div style="display:flex;gap:8px">
+                        <input type="text" id="taskInput" placeholder="新增任务">
+                        <button class="btn" id="addTaskBtn"><i class="fas fa-plus"></i> 添加</button>
+                    </div>
+                    <div id="taskList" style="margin-top:12px"></div>
+                </div>
+
+                <!-- Chat area -->
+                <div class="section" id="chatTab" style="display:none">
+                    <h2><i class="fas fa-comments"></i> 聊天</h2>
+                    <div style="display:flex;gap:12px">
+                        <div style="flex:1">
+                            <div class="panel" style="padding:8px">
+                                <div style="display:flex;align-items:center;justify-content:space-between">
+                                    <div style="display:flex;gap:10px;align-items:center">
+                                        <div class="avatar-preview" id="selectedAvatarPreview"><i class="fas fa-user"></i></div>
+                                        <div>
+                                            <div id="selectedContactName" style="font-weight:700">请选择联系人</div>
+                                            <div class="small-muted" id="selectedContactMeta">无</div>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex;gap:8px;align-items:center">
+                                        <button class="btn secondary" id="editContactBtn"><i class="fas fa-pen"></i> 编辑</button>
+                                        <button class="btn" id="openContactModalFromChat"><i class="fas fa-user-plus"></i> 新联系人</button>
+                                    </div>
+                                </div>
+                                <div style="height:12px"></div>
+                                <div style="display:flex;gap:8px;align-items:center">
+                                    <label style="min-width:68px">AI 人设</label>
+                                    <input type="text" id="aiPersona" placeholder="例如：温柔体贴的导师">
+                                </div>
+                                <div style="height:8px"></div>
+                                <div style="display:flex;gap:8px;align-items:center">
+                                    <label style="min-width:68px">自动回复</label>
+                                    <select id="autoReplyMode">
+                                        <option value="off">关闭</option>
+                                        <option value="random">随机从自定义回复中选</option>
+                                        <option value="ai">AI 生成（占位）</option>
+                                    </select>
+                                </div>
+                                <div style="height:8px"></div>
+                                <div style="display:flex;gap:8px">
+                                    <input type="text" id="customReplyInput" placeholder="为该联系人添加一条自定义回复">
+                                    <button class="btn secondary" id="addCustomReplyBtn"><i class="fas fa-plus"></i> 添加</button>
+                                </div>
+                                <div style="height:10px"></div>
+                                <div id="customReplyList" style="display:flex;flex-direction:column;gap:6px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex:2;display:flex;flex-direction:column">
+                        <div class="chat-area">
+                            <div class="chat-header">
+                                <div style="display:flex;gap:12px;align-items:center">
+                                    <div class="avatar-small" id="chatHeaderAvatar"><i class="fas fa-user"></i></div>
+                                    <div>
+                                        <div id="chatHeaderName" style="font-weight:700">未选择</div>
+                                        <div class="small-muted" id="chatHeaderSub">聊天会话</div>
+                                    </div>
+                                </div>
+                                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                                    <div class="small-muted">AI 占位回复</div>
+                                    <button class="btn small" id="genAIReplyBtn"><i class="fas fa-robot"></i> 生成 AI 回复</button>
+                                    <button class="btn small secondary" id="insertCustomReplyBtn"><i class="fas fa-comment-medical"></i> 插入自定义回复</button>
+                                    <button class="btn small ghost" id="clearChatBtn"><i class="fas fa-trash"></i> 清空</button>
+                                </div>
+                            </div>
+                            <div class="chat-messages" id="chatMessages"></div>
+                            <div class="chat-input">
+                                <input type="text" id="chatInput" placeholder="输入消息并按回车发送..." />
+                                <button class="btn" id="sendChatBtn"><i class="fas fa-paper-plane"></i> 发送</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="section" id="settingsTab" style="display:none">
+                    <h2><i class="fas fa-cog"></i> 设置</h2>
+                    <div class="grid-2">
+                        <div>
+                            <label>自动保存到 localStorage</label>
+                            <div style="height:6px"></div>
+                            <div class="muted">所有操作都会自动保存在本地，导出可生成 JSON 做备份。</div>
+                        </div>
+                        <div>
+                            <label>AI 接口（占位）</label>
+                            <div class="muted">当前为本地占位实现。如需接入真实 API，可在脚本中替换 generateAIReply 函数的实现（已预留）。</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <div class="muted small">Manifestation System V2 --- 离线版本 · 本地存储</div>
+        </footer>
+    </div>
+
+    <!-- Vision modal -->
+    <div class="modal" id="visionModal">
+        <div class="modal-card">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <h3>新建 / 编辑 愿景项</h3>
+                <div style="display:flex;gap:8px">
+                    <button class="btn secondary" id="closeVisionModal"><i class="fas fa-times"></i> 关闭</button>
+                </div>
+            </div>
+            <div style="height:10px"></div>
+            <div class="image-preview" id="visionImagePreview"><i class="fas fa-image fa-3x"></i></div>
+            <div style="height:12px"></div>
+            <div style="display:flex;gap:8px;align-items:center">
+                <label class="chip" style="cursor:pointer">
+                    上传图片
+                    <input type="file" id="visionImageInput" class="file-input" accept="image/*">
+                </label>
+                <div style="flex:1">
+                    <label>标题 / 描述</label>
+                    <input type="text" id="visionTitle" placeholder="例如：我的理想家园">
+                </div>
+            </div>
+            <div style="height:12px"></div>
+            <div style="display:flex;gap:8px;justify-content:flex-end">
+                <button class="btn" id="saveVisionBtn"><i class="fas fa-save"></i> 保存愿景</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-card">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+                <h3>新建 / 编辑 联系人</h3>
+                <button class="btn secondary" id="closeContactModal"><i class="fas fa-times"></i> 关闭</button>
+            </div>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:12px;align-items:center">
+                <div class="avatar-preview" id="contactAvatarPreview"><i class="fas fa-user fa-2x"></i></div>
+                <div style="flex:1">
+                    <label>姓名</label>
+                    <input type="text" id="contactNameInput" placeholder="例如：小林 / SP" />
+                    <div style="height:8px"></div>
+                    <label>头像（可选）</label>
+                    <label class="chip" style="cursor:pointer">
+                        选择图片
+                        <input type="file" id="contactAvatarInput" class="file-input" accept="image/*">
+                    </label>
+                </div>
+            </div>
+            <div style="height:10px"></div>
+            <div style="display:flex;gap:8px;justify-content:flex-end">
+                <button class="btn" id="saveContactBtn"><i class="fas fa-save"></i> 保存联系人</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 数据存储
+        const STORAGE_KEY = 'manifestation_v2_data_v1';
+        let DATA = {
+            vision: [],
+            contacts: [],
+            identities: [],
+            wealth: [],
+            tasks: [],
+            activities: []
+        };
+
+        // 工具函数
+        function uid(prefix='id') {
+            return prefix+'_'+Date.now()+'_'+Math.floor(Math.random()*9999);
+        }
+
+        function el(sel) { return document.querySelector(sel); }
+        function els(sel) { return Array.from(document.querySelectorAll(sel)); }
+
+        // 加载和保存数据
+        function loadData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) DATA = JSON.parse(raw);
+                if (!DATA.vision) DATA.vision = [];
+                if (!DATA.contacts) DATA.contacts = [];
+                if (!DATA.activities) DATA.activities = [];
+            } catch(e) {
+                console.warn('读取本地数据失败，使用新数据。', e);
+                DATA = {vision:[], contacts:[], identities:[], wealth:[], tasks:[], activities:[]};
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+            refreshActivity('已保存数据');
+        }
+
+        function addActivity(text) {
+            DATA.activities.unshift({id: uid('act'), text, time: new Date().toISOString()});
+            if (DATA.activities.length > 60) DATA.activities.pop();
+            saveData();
+            renderActivityList();
+        }
+
+        function refreshActivity(note) {
+            if (!note) return;
+            const act = {id:uid('act'), text: note, time: new Date().toISOString()};
+            DATA.activities.unshift(act);
+            if (DATA.activities.length > 80) DATA.activities.length = 80;
+            renderActivityList();
+        }
+
+        function fmtTime(ts) {
+            const d = new Date(ts);
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+        }
+
+        function esc(s) { 
+            return (s||'').toString().replace(/[&<>"']/g, m => 
+                ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]
+            ); 
+        }
+
+        // 渲染函数
+        function renderAll() {
+            renderVision();
+            renderContactList();
+            renderActivityList();
+            renderIdentityList();
+            renderWealth();
+            renderTasks();
+        }
+
+        function renderVision() {
+            const container = el('#visionBoard');
+            container.innerHTML = '';
+
+            if (DATA.vision.length === 0) {
+                container.innerHTML = `<div style="padding:20px;border-radius:10px;background:linear-gradient(90deg, #ffffff, #fbfdff);border:1px dashed #eaf0ff">尚无愿景项，点击左上角"新建愿景"开始</div>`;
+                return;
+            }
+
+            DATA.vision.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'vision-card';
+                card.dataset.id = item.id;
+                card.style.backgroundImage = item.imageDataUrl ? `url(${item.imageDataUrl})` : '';
+                card.style.backgroundSize = 'cover';
+                card.style.backgroundPosition = 'center';
+
+                const overlay = document.createElement('div');
+                overlay.className = 'overlay';
+                overlay.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+                    <div style="font-weight:700">${esc(item.title||'（无标题）')}</div>
+                    <div class="top-actions">
+                        <button class="icon-btn" title="编辑" data-action="edit"><i class="fas fa-pen"></i></button>
+                        <button class="icon-btn" title="删除" data-action="del"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>`;
+
+                card.appendChild(overlay);
+
+                // 事件处理
+                overlay.querySelector('[data-action="edit"]').addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    openVisionModal(item.id);
+                });
+
+                overlay.querySelector('[data-action="del"]').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (confirm('删除此愿景项？')) {
+                        DATA.vision = DATA.vision.filter(v => v.id !== item.id);
+                        saveData(); 
+                        renderVision(); 
+                        addActivity('删除愿景: ' + (item.title||'无标题'));
+                    }
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        function renderContactList() {
+            const list = el('#contactList');
+            list.innerHTML = '';
+
+            if (DATA.contacts.length === 0) {
+                list.innerHTML = `<div class="muted">暂无联系人，点"新建联系人"或在聊天页添加</div>`;
+                return;
+            }
+
+            DATA.contacts.forEach(c => {
+                const item = document.createElement('div');
+                item.className = 'contact-item';
+                item.dataset.id = c.id;
+                item.innerHTML = `<div class="avatar-small">${c.avatarDataUrl ? `<img src="${c.avatarDataUrl}" style="width:100%;height:100%;object-fit:cover">` : esc((c.name||'')[0]||'人')}</div>
+                <div class="contact-meta">
+                    <div class="contact-name">${esc(c.name||'Unnamed')}</div>
+                    <div class="contact-last">${esc(c.messages && c.messages.length ? c.messages[c.messages.length-1].text : '暂无消息')}</div>
+                </div>`;
+
+                item.addEventListener('click', () => selectContact(c.id));
+                list.appendChild(item);
+            });
+        }
+
+        function renderActivityList() {
+            const box = el('#activityList');
+            box.innerHTML = '';
+
+            DATA.activities.slice(0,20).forEach(a => {
+                const d = document.createElement('div');
+                d.style.display = 'flex'; 
+                d.style.justifyContent = 'space-between'; 
+                d.style.alignItems = 'center';
+                d.style.padding = '8px 6px'; 
+                d.style.borderRadius = '8px'; 
+                d.style.background = 'linear-gradient(90deg,#fff,#fbfdff)';
+                d.innerHTML = `<div style="font-size:.9rem">${esc(a.text)}</div><div class="small-muted" style="font-size:.78rem">${fmtTime(a.time)}</div>`;
+                box.appendChild(d);
+            });
+        }
+
+        function renderIdentityList() {
+            const box = el('#identityList');
+            if (!box) return;
+            box.innerHTML = '';
+
+            (DATA.identities||[]).forEach(i => {
+                const row = document.createElement('div');
+                row.className = 'panel';
+                row.style.marginBottom = '8px';
+                row.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+                    <div><strong>${esc(i.name)}</strong><div class="muted">${esc(i.affirm)}</div></div>
+                    <div><button class="btn small ghost" data-id="${i.id}" data-action="del">删除</button></div>
+                </div>`;
+
+                row.querySelector('[data-action="del"]').addEventListener('click', () => {
+                    DATA.identities = DATA.identities.filter(x => x.id !== i.id);
+                    saveData(); 
+                    renderIdentityList(); 
+                    addActivity('删除身份 ' + i.name);
+                });
+
+                box.appendChild(row);
+            });
+        }
+
+        function renderWealth() {
+            const box = el('#wealthList');
+            if (!box) return;
+            box.innerHTML = '';
+
+            (DATA.wealth||[]).forEach(w => {
+                const r = document.createElement('div'); 
+                r.className = 'panel'; 
+                r.style.marginBottom = '8px';
+                r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+                    <div>${esc(w.note)}</div>
+                    <div class="small-muted">${fmtTime(w.time)}</div>
+                </div>`;
+                box.appendChild(r);
+            });
+        }
+
+        function renderTasks() {
+            const box = el('#taskList');
+            if (!box) return;
+            box.innerHTML = '';
+
+            (DATA.tasks||[]).forEach(t => {
+                const r = document.createElement('div'); 
+                r.className = 'panel'; 
+                r.style.marginBottom = '8px';
+                r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+                    <div>${esc(t.text)}</div>
+                    <div><button class="btn small ghost" data-id="${t.id}" data-action="del">删除</button></div>
+                </div>`;
+
+                r.querySelector('[data-action="del"]').addEventListener('click', () => {
+                    DATA.tasks = DATA.tasks.filter(x => x.id !== t.id); 
+                    saveData(); 
+                    renderTasks(); 
+                    addActivity('删除任务 ' + t.text);
+                });
+
+                box.appendChild(r);
+            });
+        }
+
+        // 聊天功能
+        let SELECTED_CONTACT = null;
+
+        function renderChatHeader() {
+            if (!SELECTED_CONTACT) { 
+                el('#chatHeaderName').textContent = '未选择'; 
+                el('#chatHeaderSub').textContent = '聊天会话'; 
+                el('#chatHeaderAvatar').innerHTML = '<i class="fas fa-user"></i>'; 
+                return; 
+            }
+
+            el('#chatHeaderName').textContent = SELECTED_CONTACT.name || 'Unnamed';
+            el('#chatHeaderSub').textContent = `AI 人设: ${(SELECTED_CONTACT.aiPersona||'（未设）')}`;
+            el('#chatHeaderAvatar').innerHTML = SELECTED_CONTACT.avatarDataUrl ? 
+                `<img src="${SELECTED_CONTACT.avatarDataUrl}" style="width:100%;height:100%;object-fit:cover">` : 
+                esc((SELECTED_CONTACT.name||'')[0]||'?');
+
+            el('#selectedContactName').textContent = SELECTED_CONTACT.name || 'Unnamed';
+            el('#selectedContactMeta').textContent = `消息: ${(SELECTED_CONTACT.messages && SELECTED_CONTACT.messages.length) ? SELECTED_CONTACT.messages.length+' 条' : '0 条'}`;
+
+            el('#selectedAvatarPreview').innerHTML = SELECTED_CONTACT.avatarDataUrl ? 
+                `<img src="${SELECTED_CONTACT.avatarDataUrl}" style="width:100%;height:100%;object-fit:cover">` : 
+                `<i class="fas fa-user"></i>`;
+
+            // 填充设置
+            el('#aiPersona').value = SELECTED_CONTACT.aiPersona || '';
+            el('#autoReplyMode').value = SELECTED_CONTACT.autoReplyMode || 'off';
+
+            renderCustomReplyList();
+        }
+
+        function renderCustomReplyList() {
+            const wrap = el('#customReplyList'); 
+            if (!wrap) return;
+            wrap.innerHTML = '';
+
+            const arr = SELECTED_CONTACT.customReplies || [];
+            arr.forEach((r, idx) => {
+                const row = document.createElement('div');
+                row.style.display = 'flex'; 
+                row.style.justifyContent = 'space-between'; 
+                row.style.alignItems = 'center';
+                row.style.padding = '8px'; 
+                row.style.borderRadius = '8px'; 
+                row.style.background = 'linear-gradient(90deg,#fff,#fbfdff)';
+                row.innerHTML = `<div>${esc(r)}</div><div style="display:flex;gap:6px">
+                    <button class="btn small ghost" data-idx="${idx}" data-act="edit">编辑</button>
+                    <button class="btn small ghost" data-idx="${idx}" data-act="del">删除</button>
+                </div>`;
+
+                row.querySelector('[data-act="edit"]').addEventListener('click', () => {
+                    const nv = prompt('编辑回复内容', r);
+                    if (nv != null) { 
+                        SELECTED_CONTACT.customReplies[idx] = nv.trim(); 
+                        saveData(); 
+                        renderCustomReplyList(); 
+                        addActivity('编辑自定义回复');
+                    }
+                });
+
+                row.querySelector('[data-act="del"]').addEventListener('click', () => {
+                    if (confirm('删除此自定义回复？')) {
+                        SELECTED_CONTACT.customReplies.splice(idx, 1); 
+                        saveData(); 
+                        renderCustomReplyList(); 
+                        addActivity('删除自定义回复');
+                    }
+                });
+
+                wrap.appendChild(row);
+            });
+        }
+
+        function renderChatMessages() {
+            const elMsgs = el('#chatMessages'); 
+            if (!elMsgs) return;
+            elMsgs.innerHTML = '';
+
+            if (!SELECTED_CONTACT || !SELECTED_CONTACT.messages || SELECTED_CONTACT.messages.length === 0) {
+                elMsgs.innerHTML = `<div class="muted" style="text-align:center;padding:20px">暂无消息，发送第一条吧</div>`;
+                return;
+            }
+
+            SELECTED_CONTACT.messages.forEach((m, idx) => {
+                const mdiv = document.createElement('div');
+                mdiv.className = 'msg ' + (m.from === 'me' ? 'me' : '');
+                mdiv.dataset.idx = idx;
+
+                const avatar = document.createElement('div'); 
+                avatar.className = 'avatar-small';
+                avatar.innerHTML = SELECTED_CONTACT.avatarDataUrl ? 
+                    `<img src="${SELECTED_CONTACT.avatarDataUrl}" style="width:100%;height:100%;object-fit:cover">` : 
+                    esc((SELECTED_CONTACT.name||'')[0]||'?');
+
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble ' + (m.from === 'me' ? 'me' : '');
+                bubble.innerHTML = `<div style="white-space:pre-wrap">${esc(m.text)}</div><div class="msg-time">${fmtTime(m.time)}</div>`;
+
+                // 操作按钮
+                const actions = document.createElement('div');
+                actions.className = 'msg-actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'icon-btn'; 
+                editBtn.title = '编辑消息';
+                editBtn.innerHTML = '<i class="fas fa-pen"></i>';
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'icon-btn'; 
+                delBtn.title = '删除消息';
+                delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+
+                const switchBtn = document.createElement('button');
+                switchBtn.className = 'icon-btn'; 
+                switchBtn.title = '标记为对方/我';
+                switchBtn.innerHTML = '<i class="fas fa-exchange-alt"></i>';
+
+                editBtn.addEventListener('click', () => {
+                    const nv = prompt('编辑消息内容', m.text);
+                    if (nv != null) { 
+                        m.text = nv; 
+                        m.edited = true; 
+                        m.time = new Date().toISOString(); 
+                        saveData(); 
+                        renderChatMessages(); 
+                        addActivity('编辑消息');
+                    }
+                });
+
+                delBtn.addEventListener('click', () => {
+                    if (confirm('删除该消息？')) { 
+                        SELECTED_CONTACT.messages.splice(idx, 1); 
+                        saveData(); 
+                        renderChatMessages(); 
+                        addActivity('删除消息');
+                    }
+                });
+
+                switchBtn.addEventListener('click', () => {
+                    m.from = (m.from === 'me' ? 'them' : 'me'); 
+                    saveData(); 
+                    renderChatMessages(); 
+                    addActivity('切换消息方向');
+                });
+
+                actions.appendChild(editBtn); 
+                actions.appendChild(delBtn); 
+                actions.appendChild(switchBtn);
+
+                mdiv.appendChild(avatar);
+                mdiv.appendChild(bubble);
+                mdiv.appendChild(actions);
+
+                elMsgs.appendChild(mdiv);
+            });
+
+            // 滚动到底部
+            setTimeout(() => { 
+                el('#chatMessages').scrollTop = el('#chatMessages').scrollHeight; 
+            }, 80);
+        }
+
+        // 事件绑定
+        function bindEvents() {
+            // 标签页切换
+            els('.tab').forEach(t => {
+                t.addEventListener('click', () => {
+                    els('.tab').forEach(x => x.classList.remove('active'));
+                    t.classList.add('active');
+
+                    const tab = t.dataset.tab;
+                    ['visionTab','identityTab','wealthTab','tasksTab','chatTab','settingsTab'].forEach(id => {
+                        const elSec = el('#'+id);
+                        if (elSec) elSec.style.display = (id === tab) ? '' : 'none';
+                    });
+                });
+            });
+
+            // 愿景模态框
+            el('#open-vision-modal').addEventListener('click', () => openVisionModal());
+            el('#closeVisionModal').addEventListener('click', () => closeVisionModal());
+            el('#visionImageInput').addEventListener('change', (e) => handleImageFile(e.target.files[0], '#visionImagePreview'));
+            el('#saveVisionBtn').addEventListener('click', saveVision);
+
+            // 联系人模态框
+            el('#open-contact-modal').addEventListener('click', () => openContactModal());
+            el('#openContactModalFromChat').addEventListener('click', () => openContactModal());
+            el('#closeContactModal').addEventListener('click', () => closeContactModal());
+            el('#contactAvatarInput').addEventListener('change', (e) => handleImageFile(e.target.files[0], '#contactAvatarPreview'));
+            el('#saveContactBtn').addEventListener('click', saveContact);
+
+            // 聊天功能
+            el('#sendChatBtn').addEventListener('click', sendChatMessage);
+            el('#chatInput').addEventListener('keypress', (e) => { 
+                if (e.key === 'Enter') sendChatMessage(); 
+            });
+            el('#genAIReplyBtn').addEventListener('click', genAIReply);
+            el('#insertCustomReplyBtn').addEventListener('click', insertCustomReply);
+            el('#addCustomReplyBtn').addEventListener('click', addCustomReply);
+            el('#clearChatBtn').addEventListener('click', clearChat);
+            el('#editContactBtn').addEventListener('click', editContact);
+            el('#aiPersona').addEventListener('change', (e) => {
+                if (!SELECTED_CONTACT) return;
+                SELECTED_CONTACT.aiPersona = e.target.value;
+                saveData(); 
+                renderChatHeader(); 
+                addActivity('更新 AI 人设');
+            });
+            el('#autoReplyMode').addEventListener('change', (e) => {
+                if (!SELECTED_CONTACT) return;
+                SELECTED_CONTACT.autoReplyMode = e.target.value;
+                saveData(); 
+                addActivity('设置自动回复模式为 ' + e.target.value);
+            });
+
+            // 其他功能
+            el('#saveIdentityBtn').addEventListener('click', saveIdentity);
+            el('#saveWealth').addEventListener('click', saveWealthItem);
+            el('#addTaskBtn').addEventListener('click', addTask);
+            el('#export-data').addEventListener('click', exportData);
+        }
+
+        // 愿景功能
+        function openVisionModal(id) {
+            const modal = el('#visionModal'); 
+            modal.classList.add('open');
+
+            if (id) {
+                // 编辑
+                const v = DATA.vision.find(x => x.id === id);
+                if (v) { 
+                    el('#visionTitle').value = v.title || ''; 
+                    if (v.imageDataUrl) el('#visionImagePreview').innerHTML = `<img src="${v.imageDataUrl}" style="width:100%;height:100%;object-fit:cover">`; 
+                    modal.dataset.editId = id; 
+                }
+            } else {
+                el('#visionTitle').value = '';
+                el('#visionImagePreview').innerHTML = '<i class="fas fa-image fa-3x"></i>';
+                delete modal.dataset.editId;
+            }
+        }
+
+        function closeVisionModal() { 
+            el('#visionModal').classList.remove('open'); 
+            delete el('#visionModal').dataset.editId; 
+        }
+
+        function saveVision() {
+            const title = el('#visionTitle').value.trim();
+            const preview = el('#visionImagePreview').querySelector('img');
+            const img = preview ? preview.src : null;
+            const modal = el('#visionModal');
+            const editId = modal.dataset.editId;
+
+            if (editId) {
+                const v = DATA.vision.find(x => x.id === editId);
+                if (v) { 
+                    v.title = title; 
+                    if (img) v.imageDataUrl = img; 
+                    v.updatedAt = new Date().toISOString(); 
+                    addActivity('编辑愿景 ' + (title||'无标题'));
+                }
+            } else {
+                const id = uid('vision');
+                DATA.vision.unshift({id, title, imageDataUrl: img, createdAt: new Date().toISOString()});
+                addActivity('新建愿景 ' + (title||'（无标题）'));
+            }
+
+            saveData(); 
+            renderVision(); 
+            closeVisionModal();
+        }
+
+        // 联系人功能
+        function openContactModal(editId) {
+            const modal = el('#contactModal'); 
+            modal.classList.add('open');
+
+            if (editId) {
+                const c = DATA.contacts.find(x => x.id === editId);
+                if (c) { 
+                    el('#contactNameInput').value = c.name||''; 
+                    if (c.avatarDataUrl) el('#contactAvatarPreview').innerHTML = `<img src="${c.avatarDataUrl}" style="width:100%;height:100%;object-fit:cover">`; 
+                    modal.dataset.editId = editId; 
+                }
+            } else {
+                el('#contactNameInput').value = '';
+                el('#contactAvatarPreview').innerHTML = '<i class="fas fa-user fa-2x"></i>';
+                delete modal.dataset.editId;
+            }
+        }
+
+        function closeContactModal() { 
+            el('#contactModal').classList.remove('open'); 
+            delete el('#contactModal').dataset.editId; 
+        }
+
+        function saveContact() {
+            const name = el('#contactNameInput').value.trim() || 'Unnamed';
+            const previewImg = el('#contactAvatarPreview').querySelector('img');
+            const avatarData = previewImg ? previewImg.src : null;
+            const modal = el('#contactModal');
+            const editId = modal.dataset.editId;
+
+            if (editId) {
+                const c = DATA.contacts.find(x => x.id === editId);
+                if (c) { 
+                    c.name = name; 
+                    if (avatarData) c.avatarDataUrl = avatarData; 
+                    addActivity('编辑联系人 ' + name);
+                }
+            } else {
+                const id = uid('contact');
+                DATA.contacts.unshift({
+                    id, 
+                    name, 
+                    avatarDataUrl: avatarData, 
+                    aiPersona: '', 
+                    autoReplyMode: 'off', 
+                    customReplies: [], 
+                    messages: []
+                });
+                addActivity('新增联系人 ' + name);
+            }
+
+            saveData(); 
+            renderContactList(); 
+            closeContactModal();
+        }
+
+        function selectContact(id) {
+            const c = DATA.contacts.find(x => x.id === id);
+            if (!c) return;
+
+            SELECTED_CONTACT = c;
+
+            // 显示聊天标签页
+            const chatTabBtn = els('.tab').find(t => t.dataset.tab === 'chatTab');
+            if (chatTabBtn) chatTabBtn.click();
+
+            renderContactList();
+
+            // 高亮当前联系人
+            els('.contact-item').forEach(ci => {
+                ci.classList.toggle('active', ci.dataset.id === id);
+            });
+
+            renderChatHeader();
+            renderChatMessages();
+        }
+
+        function editContact() {
+            if (!SELECTED_CONTACT) { 
+                alert('先选择联系人'); 
+                return; 
+            }
+            openContactModal(SELECTED_CONTACT.id);
+        }
+
+        // 图片处理
+        function handleImageFile(file, previewSelector, doneCb) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const data = evt.target.result;
+                const preview = (typeof previewSelector === 'string') ? el(previewSelector) : previewSelector;
+                if (preview) preview.innerHTML = `<img src="${data}" style="width:100%;height:100%;object-fit:cover">`;
+                if (doneCb) doneCb(data);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 聊天功能
+        function sendChatMessage() {
+            if (!SELECTED_CONTACT) { 
+                alert('先选择联系人'); 
+                return; 
+            }
+            const txt = el('#chatInput').value.trim();
+            if (!txt) return;
+
+            const msg = {id: uid('msg'), from: 'me', text: txt, time: new Date().toISOString()};
+            SELECTED_CONTACT.messages = SELECTED_CONTACT.messages || [];
+            SELECTED_CONTACT.messages.push(msg);
+
+            saveData(); 
+            renderChatMessages(); 
+            renderContactList(); 
+            el('#chatInput').value = ''; 
+            addActivity('发送消息');
+
+            // 自动回复
+            const mode = SELECTED_CONTACT.autoReplyMode || 'off';
+            if (mode === 'off') return;
+
+            setTimeout(() => {
+                if (mode === 'random') {
+                    const arr = SELECTED_CONTACT.customReplies || [];
+                    if (arr.length > 0) {
+                        const r = arr[Math.floor(Math.random() * arr.length)];
+                        pushIncomingMessage(SELECTED_CONTACT, r);
+                    }
+                } else if (mode === 'ai') {
+                    const persona = SELECTED_CONTACT.aiPersona || '';
+                    const r = generateAIReply(persona, txt, SELECTED_CONTACT);
+                    pushIncomingMessage(SELECTED_CONTACT, r);
+                }
+            }, 700 + Math.floor(Math.random() * 800));
+        }
+
+        function pushIncomingMessage(contact, text) {
+            contact.messages = contact.messages || [];
+            const msg = {id: uid('msg'), from: 'them', text, time: new Date().toISOString()};
+            contact.messages.push(msg);
+            saveData(); 
+            renderChatMessages(); 
+            renderContactList(); 
+            addActivity('收到自动回复');
+        }
+
+        function generateAIReply(persona, lastUserMsg, contact) {
+            const nameHint = contact && contact.name ? contact.name : '朋友';
+            const templates = [
+                `（${persona||'AI'}）${nameHint}说：我听到你说"${lastUserMsg}"，我觉得这很重要。你可以这样做：先......然后......`,
+                `（${persona||'AI'}）${nameHint}回答：太棒了！关于 "${lastUserMsg}"，我的想法是：把重点放在你能控制的事情上。`,
+                `（${persona||'AI'}）${nameHint}回应：我理解你的感受。对于 "${lastUserMsg}"，建议一步一步来，先尝试小胜利。`
+            ];
+
+            const lower = (persona||'').toLowerCase();
+            if (lower.includes('温柔') || lower.includes('体贴')) {
+                return `（${persona}）我感受到你说的：「${lastUserMsg}」。我在这里支持你------你很棒，别忘了给自己时间。`;
+            }
+            if (lower.includes('直接') || lower.includes('教练')) {
+                return `（${persona}）直接建议：针对 "${lastUserMsg}"，你应该马上做三件事：1）明确目标；2）分解任务；3）开始执行。`;
+            }
+
+            return templates[Math.floor(Math.random() * templates.length)];
+        }
+
+        function genAIReply() {
+            if (!SELECTED_CONTACT) { 
+                alert('先选择联系人'); 
+                return; 
+            }
+            const persona = el('#aiPersona').value.trim();
+            SELECTED_CONTACT.aiPersona = persona;
+            saveData();
+
+            const lastUser = (SELECTED_CONTACT.messages && SELECTED_CONTACT.messages.slice().reverse().find(m => m.from === 'me')) || {text: ''};
+            const reply = generateAIReply(persona, lastUser.text||'', SELECTED_CONTACT);
+            pushIncomingMessage(SELECTED_CONTACT, reply);
+        }
+
+        function insertCustomReply() {
+            if (!SELECTED_CONTACT) { 
+                alert('先选择联系人'); 
+                return; 
+            }
+            if (!SELECTED_CONTACT.customReplies || SELECTED_CONTACT.customReplies.length === 0) {
+                alert('此联系人暂无自定义回复'); 
+                return; 
+            }
+
+            const choice = prompt('输入要插入的回复索引（从0开始），可查看右侧列表', 
+                SELECTED_CONTACT.customReplies.map((r,i) => i + ': ' + r).join('\n') + '\n请输入索引');
+            if (choice == null) return;
+
+            const idx = parseInt(choice);
+            if (isNaN(idx) || idx < 0 || idx >= SELECTED_CONTACT.customReplies.length) { 
+                alert('索引错误'); 
+                return; 
+            }
+
+            pushIncomingMessage(SELECTED_CONTACT, SELECTED_CONTACT.customReplies[idx]);
+        }
+
+        function addCustomReply() {
+            if (!SELECTED_CONTACT) { 
+                alert('先选择联系人'); 
+                return; 
+            }
+            const txt = el('#customReplyInput').value.trim();
+            if (!txt) { 
+                alert('请输入回复文本'); 
+                return; 
+            }
+
+            SELECTED_CONTACT.customReplies = SELECTED_CONTACT.customReplies || [];
+            SELECTED_CONTACT.customReplies.push(txt);
+            saveData(); 
+            el('#customReplyInput').value = ''; 
+            renderCustomReplyList(); 
+            addActivity('添加自定义回复');
+        }
+
+        function clearChat() {
+            if (!SELECTED_CONTACT) return;
+            if (confirm('清空与此联系人的所有消息？')) { 
+                SELECTED_CONTACT.messages = []; 
+                saveData(); 
+                renderChatMessages(); 
+                renderContactList(); 
+                addActivity('清空聊天');
+            }
+        }
+
+        // 其他功能
+        function saveIdentity() {
+            const name = el('#identityName').value.trim(); 
+            const aff = el('#identityAffirm').value.trim();
+            if (!name) { 
+                alert('请输入身份名'); 
+                return; 
+            }
+
+            DATA.identities = DATA.identities || [];
+            DATA.identities.unshift({id: uid('iden'), name, affirm: aff, time: new Date().toISOString()});
+            saveData(); 
+            renderIdentityList(); 
+            addActivity('保存身份 ' + name);
+            el('#identityName').value = ''; 
+            el('#identityAffirm').value = '';
+        }
+
+        function saveWealthItem() {
+            const note = el('#wealthNote').value.trim(); 
+            if (!note) return;
+            DATA.wealth = DATA.wealth || [];
+            DATA.wealth.unshift({id: uid('w'), note, time: new Date().toISOString()});
+            saveData(); 
+            renderWealth();
+            addActivity('记录财富 ' + note);
+            el('#wealthNote').value = '';
+        }
+
+        function addTask() {
+            const t = el('#taskInput').value.trim(); 
+            if (!t) return;
+            DATA.tasks = DATA.tasks || [];
+            DATA.tasks.unshift({id: uid('t'), text: t, time: new Date().toISOString()});
+            saveData(); 
+            renderTasks();
+            addActivity('添加任务 ' + t);
+            el('#taskInput').value = '';
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(DATA, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); 
+            a.href = url; 
+            a.download = 'manifestation_v2_data.json'; 
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 初始化
+        function init() {
+            loadData();
+            renderAll();
+            bindEvents();
+            
+            // 如果有联系人，选择第一个
+            if (DATA.contacts.length > 0 && !SELECTED_CONTACT) {
+                selectContact(DATA.contacts[0].id);
+            }
+            
+            refreshActivity('系统已加载');
+        }
+
+        // 启动应用
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
