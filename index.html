@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>显化系统 - 创造理想人生</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #9c88ff;
+            --secondary: #8c7ae6;
+            --accent: #e84118;
+            --light: #f5f6fa;
+            --dark: #2f3640;
+            --success: #44bd32;
+            --warning: #fbc531;
+            --info: #00a8ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 5px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin: 0 5px;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(156, 136, 255, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(156, 136, 255, 0.4);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .vision-board {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .vision-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .vision-text {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .vision-actions {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .vision-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .wealth-check {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .check-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .check-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-checkbox {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .task-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .chakra-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .chakra-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--light);
+        }
+
+        .chakra-color {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+
+        .chakra-1 { background: #ff4757; }
+        .chakra-2 { background: #ffa502; }
+        .chakra-3 { background: #fffa65; }
+        .chakra-4 { background: #2ed573; }
+        .chakra-5 { background: #1e90ff; }
+        .chakra-6 { background: #5352ed; }
+        .chakra-7 { background: #8e44ad; }
+
+        .journal-entry {
+            margin-bottom: 20px;
+        }
+
+        .entry-date {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .entry-content {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .emotion-scale {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .emotion-level {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .emotion-level.active {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .level-1 { background: #ff6b6b; color: white; }
+        .level-2 { background: #ff9e7d; color: white; }
+        .level-3 { background: #ffd166; }
+        .level-4 { background: #8ac926; color: white; }
+        .level-5 { background: #1982c4; color: white; }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .library-item {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 4px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .footer-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-btn i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .footer-btn.active {
+            color: var(--primary);
+        }
+
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-date {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .history-content {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .history-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .history-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+
+        .image-preview i {
+            font-size: 3rem;
+            color: #ccc;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: block;
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .dimension-grid, .vision-board, .chakra-container, .library-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .emotion-scale {
+                flex-direction: column;
+            }
+            
+            .emotion-level {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>显化系统</h1>
+            <p class="subtitle">创造你的理想人生 · 公主请选择你的新身份</p>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="identity">身份卡</div>
+            <div class="nav-tab" data-tab="vision">愿景板</div>
+            <div class="nav-tab" data-tab="wealth">财富值</div>
+            <div class="nav-tab" data-tab="script">新剧本</div>
+            <div class="nav-tab" data-tab="tasks">目标任务</div>
+            <div class="nav-tab" data-tab="chakras">脉轮</div>
+            <div class="nav-tab" data-tab="journal">打卡</div>
+            <div class="nav-tab" data-tab="emotions">情绪</div>
+        </div>
+
+        <!-- 身份卡 -->
+        <div class="tab-content active" id="identity">
+            <h2 class="section-title"><i class="fas fa-id-card"></i> 身份卡</h2>
+            <p class="card">从六个维度全方位设定你的新角色特性，建立可视化身份锚点，降低目标模糊性，行动力提升300%。</p>
+            
+            <div class="dimension-grid">
+                <div class="form-group">
+                    <label for="identity-role">身份</label>
+                    <input type="text" id="identity-role" placeholder="例如：成功的创业者">
+                </div>
+                
+                <div class="form-group">
+                    <label for="identity-relationships">人际关系</label>
+                    <input type="text" id="identity-relationships" placeholder="例如：被爱与支持包围">
+                </div>
+                
+                <div class="form-group">
+                    <label for="identity-appearance">颜值</label>
+                    <input type="text" id="identity-appearance" placeholder="例如：自信美丽有魅力">
+                </div>
+                
+                <div class="form-group">
+                    <label for="identity-body">身体</label>
+                    <input type="text" id="identity-body" placeholder="例如：健康有活力">
+                </div>
+                
+                <div class="form-group">
+                    <label for="identity-wealth">财富值</label>
+                    <input type="text" id="identity-wealth" placeholder="例如：富足丰盛">
+                </div>
+                
+                <div class="form-group">
+                    <label for="identity-lifestyle">生活状态</label>
+                    <input type="text" id="identity-lifestyle" placeholder="例如：自由充实">
+                </div>
+            </div>
+            
+            <button class="btn btn-block" id="save-identity"><i class="fas fa-save"></i> 保存身份卡</button>
+            
+            <div class="history-list" id="identity-history"></div>
+        </div>
+
+        <!-- 愿景板 -->
+        <div class="tab-content" id="vision">
+            <h2 class="section-title"><i class="fas fa-images"></i> 愿景板</h2>
+            <p class="card">将理想人生场景以图片/文字形式具象化，持续观想能激活θ脑波状态，直接向潜意识植入显化指令。</p>
+            
+            <div class="vision-board" id="vision-board-container">
+                <!-- 愿景项将通过JS动态添加 -->
+            </div>
+            
+            <div class="form-group">
+                <label for="vision-text">我的愿景肯定语</label>
+                <textarea id="vision-text" placeholder="写下你的愿景肯定语，例如：我值得拥有富足、快乐和健康的生活。"></textarea>
+            </div>
+            
+            <button class="btn btn-block" id="add-vision-item"><i class="fas fa-plus"></i> 添加愿景项</button>
+            <button class="btn btn-block btn-secondary" id="save-vision"><i class="fas fa-save"></i> 保存愿景板</button>
+        </div>
+
+        <!-- 财富值 -->
+        <div class="tab-content" id="wealth">
+            <h2 class="section-title"><i class="fas fa-money-check-alt"></i> 财富值</h2>
+            <p class="card">虚拟财富操作能重构金钱认知框架，释放"不配得感"的潜意识阻碍。</p>
+            
+            <div class="wealth-check">
+                <div>宇宙支票</div>
+                <div class="check-amount" id="check-amount-display">¥ 0</div>
+                <div>收款人：<span id="check-recipient">你的名字</span></div>
+                <div class="check-details">
+                    <div>账户：<span id="check-account-display">未设置</span></div>
+                    <div>日期：<span id="check-date">2023-11-15</span></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="wealth-amount">金额</label>
+                <input type="text" id="wealth-amount" placeholder="例如：50000">
+            </div>
+            
+            <div class="form-group">
+                <label for="wealth-account">银行账户</label>
+                <input type="text" id="wealth-account" placeholder="例如：中国银行">
+            </div>
+            
+            <div class="form-group">
+                <label for="wealth-purpose">收款内容</label>
+                <input type="text" id="wealth-purpose" placeholder="例如：副业收入">
+            </div>
+            
+            <button class="btn btn-block" id="generate-check"><i class="fas fa-file-invoice-dollar"></i> 生成宇宙支票</button>
+            <button class="btn btn-block btn-secondary" id="save-wealth"><i class="fas fa-save"></i> 保存财富支票</button>
+            
+            <div class="history-list" id="wealth-history"></div>
+        </div>
+
+        <!-- 新剧本 -->
+        <div class="tab-content" id="script">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> 新剧本</h2>
+            <p class="card">通过改写人生故事释放旧有剧本限制，创造新的现实剧本。</p>
+            
+            <div class="form-group">
+                <label for="script-title">剧本标题</label>
+                <input type="text" id="script-title" placeholder="例如：我的丰盛人生">
+            </div>
+            
+            <div class="form-group">
+                <label for="script-content">剧本内容</label>
+                <textarea id="script-content" placeholder="写下你的人生新剧本，例如：我是一位充满自信和魅力的女性，每天都吸引着丰盛和美好的事物进入我的生活..."></textarea>
+            </div>
+            
+            <button class="btn btn-block" id="save-script"><i class="fas fa-feather-alt"></i> 保存剧本</button>
+            
+            <h3 class="section-title" style="margin-top: 30px;">我的剧本库</h3>
+            <div class="history-list" id="script-history"></div>
+        </div>
+
+        <!-- 目标任务 -->
+        <div class="tab-content" id="tasks">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> 目标任务</h2>
+            <p class="card">将宏大的显化目标拆解成具体的任务，跟随直觉以及宇宙的指引去做。</p>
+            
+            <div class="form-group">
+                <label for="task-title">任务名称</label>
+                <input type="text" id="task-title" placeholder="例如：每日冥想">
+            </div>
+            
+            <div class="form-group">
+                <label for="task-category">任务分类</label>
+                <select id="task-category">
+                    <option value="health">健身/养生</option>
+                    <option value="learning">学习</option>
+                    <option value="career">事业</option>
+                    <option value="relationship">关系</option>
+                    <option value="finance">财富</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="task-frequency">执行频率</label>
+                <select id="task-frequency">
+                    <option value="daily">每日</option>
+                    <option value="weekly">每周</option>
+                    <option value="monthly">每月</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-block" id="add-task"><i class="fas fa-plus"></i> 添加任务</button>
+            
+            <h3 class="section-title" style="margin-top: 30px;">我的任务</h3>
+            <ul class="task-list" id="task-list">
+                <!-- 任务将通过JS动态添加 -->
+            </ul>
+        </div>
+
+        <!-- 脉轮 -->
+        <div class="tab-content" id="chakras">
+            <h2 class="section-title"><i class="fas fa-star"></i> 脉轮</h2>
+            <p class="card">通过激活人体七大能量中心的积极自我对话，重塑身心平衡，唤醒内在潜能与生命活力。</p>
+            
+            <div class="chakra-container">
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-1"></div>
+                    <div>海底轮</div>
+                    <div class="chakra-desc">安全感与生存</div>
+                </div>
+                
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-2"></div>
+                    <div>脐轮</div>
+                    <div class="chakra-desc">情感与创造力</div>
+                </div>
+                
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-3"></div>
+                    <div>太阳轮</div>
+                    <div class="chakra-desc">意志力与自信</div>
+                </div>
+                
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-4"></div>
+                    <div>心轮</div>
+                    <div class="chakra-desc">爱与慈悲</div>
+                </div>
+                
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-5"></div>
+                    <div>喉轮</div>
+                    <div class="chakra-desc">表达与沟通</div>
+                </div>
+                
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-6"></div>
+                    <div>眉心轮</div>
+                    <div class="chakra-desc">直觉与洞察</div>
+                </div>
+                
+                <div class="chakra-item">
+                    <div class="chakra-color chakra-7"></div>
+                    <div>顶轮</div>
+                    <div class="chakra-desc">灵性连接</div>
+                </div>
+            </div>
+            
+            <h3 class="section-title" style="margin-top: 30px;">脉轮肯定语</h3>
+            <div class="card">
+                <p><strong>海底轮：</strong>我是安全的，我扎根于大地，宇宙无限支持我。</p>
+                <p><strong>脐轮：</strong>我感受并尊重我的情绪，我的创造力源源不断。</p>
+                <p><strong>太阳轮：</strong>我自信且强大，我有能力创造我想要的生活。</p>
+                <p><strong>心轮：</strong>我爱与被爱，我向世界散发慈悲与善意。</p>
+                <p><strong>喉轮：</strong>我真实表达自己，我的话语充满力量与真诚。</p>
+                <p><strong>眉心轮：</strong>我信任我的直觉，我清晰地看到前方的道路。</p>
+                <p><strong>顶轮：</strong>我与宇宙智慧连接，我知晓一切皆有可能。</p>
+            </div>
+        </div>
+
+        <!-- 打卡 -->
+        <div class="tab-content" id="journal">
+            <h2 class="section-title"><i class="fas fa-calendar-check"></i> 打卡</h2>
+            <p class="card">每日打卡肯定语+成功日记/爱自己日记/感恩日记，保持每日高能量+加强目标显化。</p>
+            
+            <div class="form-group">
+                <label for="journal-type">日记类型</label>
+                <select id="journal-type">
+                    <option value="gratitude">感恩日记</option>
+                    <option value="success">成功日记</option>
+                    <option value="self-love">爱自己日记</option>
+                    <option value="affirmation">肯定语</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="journal-content">日记内容</label>
+                <textarea id="journal-content" placeholder="写下你的感恩、成功、爱自己或肯定语..."></textarea>
+            </div>
+            
+            <button class="btn btn-block" id="save-journal"><i class="fas fa-save"></i> 保存日记</button>
+            
+            <h3 class="section-title" style="margin-top: 30px;">今日打卡</h3>
+            <div class="journal-entry" id="today-journal">
+                <!-- 今日日记将通过JS动态添加 -->
+            </div>
+            
+            <h3 class="section-title" style="margin-top: 30px;">历史记录</h3>
+            <div class="history-list" id="journal-history"></div>
+        </div>
+
+        <!-- 情绪 -->
+        <div class="tab-content" id="emotions">
+            <h2 class="section-title"><i class="fas fa-heart"></i> 情绪记录</h2>
+            <p class="card">情绪记录与释放通过转化低频能量为高频状态，增强自我觉察与意图清晰度。</p>
+            
+            <div class="emotion-scale">
+                <div class="emotion-level level-1" data-level="20">
+                    <div>羞愧</div>
+                    <div>20</div>
+                </div>
+                <div class="emotion-level level-2" data-level="30">
+                    <div>恐惧</div>
+                    <div>30</div>
+                </div>
+                <div class="emotion-level level-3" data-level="50">
+                    <div>愤怒</div>
+                    <div>50</div>
+                </div>
+                <div class="emotion-level level-4" data-level="85">
+                    <div>爱</div>
+                    <div>85</div>
+                </div>
+                <div class="emotion-level level-5" data-level="100">
+                    <div>平和</div>
+                    <div>100</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="emotion-level">当前情绪能量级别</label>
+                <input type="text" id="emotion-level-display" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label for="emotion-description">情绪描述</label>
+                <textarea id="emotion-description" placeholder="描述你当前的感受和情绪..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="emotion-release">情绪释放方法</label>
+                <select id="emotion-release">
+                    <option value="breathing">深呼吸</option>
+                    <option value="meditation">冥想</option>
+                    <option value="writing">书写释放</option>
+                    <option value="movement">身体运动</option>
+                    <option value="affirmation">肯定语</option>
+                </select>
+            </div>
+            
+            <button class="btn btn-block" id="save-emotion"><i class="fas fa-heartbeat"></i> 记录并释放情绪</button>
+            
+            <h3 class="section-title" style="margin-top: 30px;">情绪历史</h3>
+            <div class="history-list" id="emotion-history"></div>
+        </div>
+    </div>
+
+    <!-- 愿景项添加模态框 -->
+    <div class="modal" id="vision-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加愿景项</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="image-preview" id="image-preview">
+                <i class="fas fa-image"></i>
+            </div>
+            <label for="vision-image" class="file-label">
+                <i class="fas fa-upload"></i> 选择图片
+            </label>
+            <input type="file" id="vision-image" class="file-input" accept="image/*">
+            <div class="form-group">
+                <label for="vision-item-text">愿景描述</label>
+                <input type="text" id="vision-item-text" placeholder="例如：我的理想家园">
+            </div>
+            <button class="btn btn-block" id="save-vision-item"><i class="fas fa-save"></i> 保存愿景项</button>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#" class="footer-btn active" data-tab="identity">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </a>
+        <a href="#" class="footer-btn" data-tab="explore">
+            <i class="fas fa-compass"></i>
+            <span>探索</span>
+        </a>
+        <a href="#" class="footer-btn" data-tab="progress">
+            <i class="fas fa-chart-line"></i>
+            <span>进度</span>
+        </a>
+        <a href="#" class="footer-btn" data-tab="profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </a>
+    </footer>
+
+    <script>
+        // 数据存储对象
+        const appData = {
+            identity: [],
+            vision: [],
+            wealth: [],
+            scripts: [],
+            tasks: [],
+            journals: [],
+            emotions: []
+        };
+
+        // DOM加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载保存的数据
+            loadSavedData();
+            
+            // 初始化日期
+            initDate();
+            
+            // 绑定事件监听器
+            bindEventListeners();
+            
+            // 渲染初始数据
+            renderInitialData();
+        });
+
+        // 加载保存的数据
+        function loadSavedData() {
+            const savedData = localStorage.getItem('manifestationAppData');
+            if (savedData) {
+                Object.assign(appData, JSON.parse(savedData));
+            }
+        }
+
+        // 保存数据到本地存储
+        function saveData() {
+            localStorage.setItem('manifestationAppData', JSON.stringify(appData));
+        }
+
+        // 初始化日期
+        function initDate() {
+            const today = new Date();
+            const formattedDate = today.getFullYear() + '-' + 
+                                String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                                String(today.getDate()).padStart(2, '0');
+            document.getElementById('check-date').textContent = formattedDate;
+        }
+
+        // 绑定事件监听器
+        function bindEventListeners() {
+            // 切换标签页
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有active类
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前标签
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // 底部导航
+            document.querySelectorAll('.footer-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tab = btn.getAttribute('data-tab');
+                    
+                    // 移除所有active类
+                    document.querySelectorAll('.footer-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类
+                    btn.classList.add('active');
+                    
+                    // 特殊处理底部导航
+                    if (tab === 'explore') {
+                        document.querySelector('.nav-tab[data-tab="vision"]').click();
+                    } else if (tab === 'progress') {
+                        document.querySelector('.nav-tab[data-tab="tasks"]').click();
+                    } else if (tab === 'profile') {
+                        document.querySelector('.nav-tab[data-tab="journal"]').click();
+                    } else {
+                        document.querySelector(`.nav-tab[data-tab="${tab}"]`).click();
+                    }
+                });
+            });
+
+            // 保存身份卡
+            document.getElementById('save-identity').addEventListener('click', saveIdentity);
+
+            // 愿景板相关
+            document.getElementById('add-vision-item').addEventListener('click', openVisionModal);
+            document.getElementById('save-vision-item').addEventListener('click', saveVisionItem);
+            document.getElementById('save-vision').addEventListener('click', saveVisionBoard);
+            document.querySelector('.close-modal').addEventListener('click', closeVisionModal);
+            document.getElementById('vision-image').addEventListener('change', handleImageUpload);
+
+            // 财富值相关
+            document.getElementById('generate-check').addEventListener('click', generateWealthCheck);
+            document.getElementById('save-wealth').addEventListener('click', saveWealthCheck);
+
+            // 新剧本相关
+            document.getElementById('save-script').addEventListener('click', saveScript);
+
+            // 目标任务相关
+            document.getElementById('add-task').addEventListener('click', addTask);
+
+            // 打卡相关
+            document.getElementById('save-journal').addEventListener('click', saveJournal);
+
+            // 情绪相关
+            document.querySelectorAll('.emotion-level').forEach(level => {
+                level.addEventListener('click', selectEmotionLevel);
+            });
+            document.getElementById('save-emotion').addEventListener('click', saveEmotion);
+        }
+
+        // 渲染初始数据
+        function renderInitialData() {
+            renderIdentityHistory();
+            renderVisionBoard();
+            renderWealthHistory();
+            renderScriptHistory();
+            renderTaskList();
+            renderJournalHistory();
+            renderEmotionHistory();
+        }
+
+        // 保存身份卡
+        function saveIdentity() {
+            const identityData = {
+                role: document.getElementById('identity-role').value,
+                relationships: document.getElementById('identity-relationships').value,
+                appearance: document.getElementById('identity-appearance').value,
+                body: document.getElementById('identity-body').value,
+                wealth: document.getElementById('identity-wealth').value,
+                lifestyle: document.getElementById('identity-lifestyle').value,
+                date: new Date().toISOString()
+            };
+            
+            if (!identityData.role) {
+                alert('请至少填写身份信息！');
+                return;
+            }
+            
+            appData.identity.push(identityData);
+            saveData();
+            renderIdentityHistory();
+            
+            // 清空表单
+            document.getElementById('identity-role').value = '';
+            document.getElementById('identity-relationships').value = '';
+            document.getElementById('identity-appearance').value = '';
+            document.getElementById('identity-body').value = '';
+            document.getElementById('identity-wealth').value = '';
+            document.getElementById('identity-lifestyle').value = '';
+            
+            alert('身份卡已保存！');
+        }
+
+        // 渲染身份历史
+        function renderIdentityHistory() {
+            const historyContainer = document.getElementById('identity-history');
+            historyContainer.innerHTML = '';
+            
+            if (appData.identity.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无身份卡记录</p>';
+                return;
+            }
+            
+            appData.identity.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>${item.role}</strong> - ${item.relationships} - ${item.appearance}
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="loadIdentity(${index})"><i class="fas fa-edit"></i></button>
+                        <button class="history-btn" onclick="deleteIdentity(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 加载身份卡到表单
+        function loadIdentity(index) {
+            const item = appData.identity[index];
+            document.getElementById('identity-role').value = item.role || '';
+            document.getElementById('identity-relationships').value = item.relationships || '';
+            document.getElementById('identity-appearance').value = item.appearance || '';
+            document.getElementById('identity-body').value = item.body || '';
+            document.getElementById('identity-wealth').value = item.wealth || '';
+            document.getElementById('identity-lifestyle').value = item.lifestyle || '';
+        }
+
+        // 删除身份卡
+        function deleteIdentity(index) {
+            if (confirm('确定要删除这个身份卡吗？')) {
+                appData.identity.splice(index, 1);
+                saveData();
+                renderIdentityHistory();
+            }
+        }
+
+        // 打开愿景模态框
+        function openVisionModal() {
+            document.getElementById('vision-modal').style.display = 'flex';
+        }
+
+        // 关闭愿景模态框
+        function closeVisionModal() {
+            document.getElementById('vision-modal').style.display = 'none';
+            // 重置表单
+            document.getElementById('vision-item-text').value = '';
+            document.getElementById('image-preview').style.backgroundImage = '';
+            document.getElementById('image-preview').innerHTML = '<i class="fas fa-image"></i>';
+        }
+
+        // 处理图片上传
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('image-preview').style.backgroundImage = `url(${e.target.result})`;
+                    document.getElementById('image-preview').innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 保存愿景项
+        function saveVisionItem() {
+            const text = document.getElementById('vision-item-text').value;
+            const imagePreview = document.getElementById('image-preview');
+            const imageUrl = imagePreview.style.backgroundImage || 'url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)';
+            
+            if (!text) {
+                alert('请输入愿景描述！');
+                return;
+            }
+            
+            const visionItem = {
+                text: text,
+                image: imageUrl,
+                date: new Date().toISOString()
+            };
+            
+            appData.vision.push(visionItem);
+            saveData();
+            renderVisionBoard();
+            closeVisionModal();
+            
+            alert('愿景项已添加！');
+        }
+
+        // 渲染愿景板
+        function renderVisionBoard() {
+            const container = document.getElementById('vision-board-container');
+            container.innerHTML = '';
+            
+            if (appData.vision.length === 0) {
+                // 添加默认愿景项
+                const defaultItems = [
+                    { text: '我的理想家园', image: 'url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)' },
+                    { text: '成功的事业', image: 'url(https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)' },
+                    { text: '健康的生活方式', image: 'url(https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)' },
+                    { text: '美好的关系', image: 'url(https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)' }
+                ];
+                
+                defaultItems.forEach(item => {
+                    const visionItem = document.createElement('div');
+                    visionItem.className = 'vision-item';
+                    visionItem.style.backgroundImage = item.image;
+                    visionItem.innerHTML = `
+                        <div class="vision-text">${item.text}</div>
+                        <div class="vision-actions">
+                            <button class="vision-btn"><i class="fas fa-edit"></i></button>
+                            <button class="vision-btn"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    container.appendChild(visionItem);
+                });
+            } else {
+                appData.vision.forEach((item, index) => {
+                    const visionItem = document.createElement('div');
+                    visionItem.className = 'vision-item';
+                    visionItem.style.backgroundImage = item.image;
+                    visionItem.innerHTML = `
+                        <div class="vision-text">${item.text}</div>
+                        <div class="vision-actions">
+                            <button class="vision-btn" onclick="editVisionItem(${index})"><i class="fas fa-edit"></i></button>
+                            <button class="vision-btn" onclick="deleteVisionItem(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    container.appendChild(visionItem);
+                });
+            }
+        }
+
+        // 编辑愿景项
+        function editVisionItem(index) {
+            // 简化实现：直接删除并重新添加
+            if (confirm('确定要编辑这个愿景项吗？')) {
+                const item = appData.vision[index];
+                document.getElementById('vision-item-text').value = item.text;
+                document.getElementById('image-preview').style.backgroundImage = item.image;
+                document.getElementById('image-preview').innerHTML = '';
+                
+                appData.vision.splice(index, 1);
+                saveData();
+                renderVisionBoard();
+                openVisionModal();
+            }
+        }
+
+        // 删除愿景项
+        function deleteVisionItem(index) {
+            if (confirm('确定要删除这个愿景项吗？')) {
+                appData.vision.splice(index, 1);
+                saveData();
+                renderVisionBoard();
+            }
+        }
+
+        // 保存愿景板
+        function saveVisionBoard() {
+            const affirmation = document.getElementById('vision-text').value;
+            if (affirmation) {
+                // 这里可以保存肯定语到数据中
+                alert('愿景板已保存！');
+            } else {
+                alert('请输入愿景肯定语！');
+            }
+        }
+
+        // 生成财富支票
+        function generateWealthCheck() {
+            const amount = document.getElementById('wealth-amount').value;
+            const account = document.getElementById('wealth-account').value;
+            const purpose = document.getElementById('wealth-purpose').value;
+            
+            if (!amount || !account || !purpose) {
+                alert('请填写完整的财富支票信息！');
+                return;
+            }
+            
+            document.getElementById('check-amount-display').textContent = '¥ ' + amount;
+            document.getElementById('check-account-display').textContent = account;
+            
+            alert('宇宙支票已生成！');
+        }
+
+        // 保存财富支票
+        function saveWealthCheck() {
+            const amount = document.getElementById('wealth-amount').value;
+            const account = document.getElementById('wealth-account').value;
+            const purpose = document.getElementById('wealth-purpose').value;
+            
+            if (!amount || !account || !purpose) {
+                alert('请填写完整的财富支票信息！');
+                return;
+            }
+            
+            const wealthData = {
+                amount: amount,
+                account: account,
+                purpose: purpose,
+                date: new Date().toISOString()
+            };
+            
+            appData.wealth.push(wealthData);
+            saveData();
+            renderWealthHistory();
+            
+            // 清空表单
+            document.getElementById('wealth-amount').value = '';
+            document.getElementById('wealth-account').value = '';
+            document.getElementById('wealth-purpose').value = '';
+            
+            alert('财富支票已保存！');
+        }
+
+        // 渲染财富历史
+        function renderWealthHistory() {
+            const historyContainer = document.getElementById('wealth-history');
+            historyContainer.innerHTML = '';
+            
+            if (appData.wealth.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无财富支票记录</p>';
+                return;
+            }
+            
+            appData.wealth.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>¥ ${item.amount}</strong> - ${item.account} - ${item.purpose}
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteWealth(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 删除财富记录
+        function deleteWealth(index) {
+            if (confirm('确定要删除这个财富记录吗？')) {
+                appData.wealth.splice(index, 1);
+                saveData();
+                renderWealthHistory();
+            }
+        }
+
+        // 保存剧本
+        function saveScript() {
+            const title = document.getElementById('script-title').value;
+            const content = document.getElementById('script-content').value;
+            
+            if (!title || !content) {
+                alert('请填写完整的剧本信息！');
+                return;
+            }
+            
+            const scriptData = {
+                title: title,
+                content: content,
+                date: new Date().toISOString()
+            };
+            
+            appData.scripts.push(scriptData);
+            saveData();
+            renderScriptHistory();
+            
+            // 清空表单
+            document.getElementById('script-title').value = '';
+            document.getElementById('script-content').value = '';
+            
+            alert('剧本已保存！');
+        }
+
+        // 渲染剧本历史
+        function renderScriptHistory() {
+            const historyContainer = document.getElementById('script-history');
+            historyContainer.innerHTML = '';
+            
+            if (appData.scripts.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无剧本记录</p>';
+                return;
+            }
+            
+            appData.scripts.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'journal-entry';
+                historyItem.innerHTML = `
+                    <div class="entry-date">${new Date(item.date).toLocaleDateString()} - ${item.title}</div>
+                    <div class="entry-content">${item.content}</div>
+                    <div class="history-actions" style="margin-top: 10px;">
+                        <button class="history-btn" onclick="deleteScript(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 删除剧本
+        function deleteScript(index) {
+            if (confirm('确定要删除这个剧本吗？')) {
+                appData.scripts.splice(index, 1);
+                saveData();
+                renderScriptHistory();
+            }
+        }
+
+        // 添加任务
+        function addTask() {
+            const title = document.getElementById('task-title').value;
+            const category = document.getElementById('task-category').value;
+            const frequency = document.getElementById('task-frequency').value;
+            
+            if (!title) {
+                alert('请输入任务名称！');
+                return;
+            }
+            
+            const taskData = {
+                title: title,
+                category: category,
+                frequency: frequency,
+                completed: false,
+                date: new Date().toISOString()
+            };
+            
+            appData.tasks.push(taskData);
+            saveData();
+            renderTaskList();
+            
+            // 清空表单
+            document.getElementById('task-title').value = '';
+            
+            alert('任务已添加！');
+        }
+
+        // 渲染任务列表
+        function renderTaskList() {
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';
+            
+            if (appData.tasks.length === 0) {
+                // 添加默认任务
+                const defaultTasks = [
+                    { title: '晨间冥想', desc: '每天早晨10分钟冥想，设定一天的能量基调', completed: false },
+                    { title: '阅读正念书籍', desc: '每天阅读30分钟正念相关书籍', completed: false }
+                ];
+                
+                defaultTasks.forEach((task, index) => {
+                    const taskItem = document.createElement('li');
+                    taskItem.className = 'task-item';
+                    taskItem.innerHTML = `
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-desc">${task.desc}</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="history-btn" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    taskList.appendChild(taskItem);
+                });
+            } else {
+                appData.tasks.forEach((task, index) => {
+                    const taskItem = document.createElement('li');
+                    taskItem.className = 'task-item';
+                    taskItem.innerHTML = `
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${index})">
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-desc">${task.category} - ${task.frequency}</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="history-btn" onclick="deleteTask(${index})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    taskList.appendChild(taskItem);
+                });
+            }
+        }
+
+        // 切换任务完成状态
+        function toggleTask(index) {
+            appData.tasks[index].completed = !appData.tasks[index].completed;
+            saveData();
+        }
+
+        // 删除任务
+        function deleteTask(index) {
+            if (confirm('确定要删除这个任务吗？')) {
+                appData.tasks.splice(index, 1);
+                saveData();
+                renderTaskList();
+            }
+        }
+
+        // 保存日记
+        function saveJournal() {
+            const type = document.getElementById('journal-type').value;
+            const content = document.getElementById('journal-content').value;
+            
+            if (!content) {
+                alert('请输入日记内容！');
+                return;
+            }
+            
+            const journalData = {
+                type: type,
+                content: content,
+                date: new Date().toISOString()
+            };
+            
+            appData.journals.push(journalData);
+            saveData();
+            renderJournalHistory();
+            
+            // 清空表单
+            document.getElementById('journal-content').value = '';
+            
+            alert('日记已保存！');
+        }
+
+        // 渲染日记历史
+        function renderJournalHistory() {
+            const historyContainer = document.getElementById('journal-history');
+            const todayContainer = document.getElementById('today-journal');
+            historyContainer.innerHTML = '';
+            todayContainer.innerHTML = '';
+            
+            if (appData.journals.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无日记记录</p>';
+                todayContainer.innerHTML = '<p class="card">今日暂无日记</p>';
+                return;
+            }
+            
+            const today = new Date().toDateString();
+            let todayFound = false;
+            
+            appData.journals.forEach((item, index) => {
+                const itemDate = new Date(item.date).toDateString();
+                
+                // 显示今日日记
+                if (itemDate === today && !todayFound) {
+                    todayContainer.innerHTML = `
+                        <div class="entry-date">${new Date(item.date).toLocaleDateString()}</div>
+                        <div class="entry-content">
+                            <p><strong>${getJournalTypeName(item.type)}：</strong>${item.content}</p>
+                        </div>
+                    `;
+                    todayFound = true;
+                }
+                
+                // 添加到历史记录
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>${getJournalTypeName(item.type)}</strong>: ${item.content.substring(0, 50)}...
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteJournal(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+            
+            if (!todayFound) {
+                todayContainer.innerHTML = '<p class="card">今日暂无日记</p>';
+            }
+        }
+
+        // 获取日记类型名称
+        function getJournalTypeName(type) {
+            const typeNames = {
+                'gratitude': '感恩日记',
+                'success': '成功日记',
+                'self-love': '爱自己日记',
+                'affirmation': '肯定语'
+            };
+            return typeNames[type] || type;
+        }
+
+        // 删除日记
+        function deleteJournal(index) {
+            if (confirm('确定要删除这篇日记吗？')) {
+                appData.journals.splice(index, 1);
+                saveData();
+                renderJournalHistory();
+            }
+        }
+
+        // 选择情绪级别
+        function selectEmotionLevel(event) {
+            document.querySelectorAll('.emotion-level').forEach(level => {
+                level.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            
+            const level = event.currentTarget.getAttribute('data-level');
+            const levelText = event.currentTarget.querySelector('div:first-child').textContent;
+            document.getElementById('emotion-level-display').value = `${levelText} (${level})`;
+        }
+
+        // 保存情绪记录
+        function saveEmotion() {
+            const activeLevel = document.querySelector('.emotion-level.active');
+            if (!activeLevel) {
+                alert('请选择情绪级别！');
+                return;
+            }
+            
+            const level = activeLevel.getAttribute('data-level');
+            const levelText = activeLevel.querySelector('div:first-child').textContent;
+            const description = document.getElementById('emotion-description').value;
+            const releaseMethod = document.getElementById('emotion-release').value;
+            
+            if (!description) {
+                alert('请输入情绪描述！');
+                return;
+            }
+            
+            const emotionData = {
+                level: level,
+                levelText: levelText,
+                description: description,
+                releaseMethod: releaseMethod,
+                date: new Date().toISOString()
+            };
+            
+            appData.emotions.push(emotionData);
+            saveData();
+            renderEmotionHistory();
+            
+            // 清空表单
+            document.getElementById('emotion-description').value = '';
+            document.querySelectorAll('.emotion-level').forEach(level => {
+                level.classList.remove('active');
+            });
+            document.getElementById('emotion-level-display').value = '';
+            
+            alert('情绪记录已保存！');
+        }
+
+        // 渲染情绪历史
+        function renderEmotionHistory() {
+            const historyContainer = document.getElementById('emotion-history');
+            historyContainer.innerHTML = '';
+            
+            if (appData.emotions.length === 0) {
+                historyContainer.innerHTML = '<p class="card">暂无情绪记录</p>';
+                return;
+            }
+            
+            appData.emotions.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-date">${new Date(item.date).toLocaleDateString()}</div>
+                    <div class="history-content">
+                        <strong>${item.levelText} (${item.level})</strong>: ${item.description}
+                    </div>
+                    <div class="history-actions">
+                        <button class="history-btn" onclick="deleteEmotion(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        // 删除情绪记录
+        function deleteEmotion(index) {
+            if (confirm('确定要删除这个情绪记录吗？')) {
+                appData.emotions.splice(index, 1);
+                saveData();
+                renderEmotionHistory();
+            }
+        }
+    </script>
+</body>
+</html>
